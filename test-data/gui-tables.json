@@ -1,0 +1,1012 @@
+{
+  "tables": [
+    {
+      "tableName": "fool_date",
+      "allowAttachedFiles": false,
+      "list": {
+        "firstColumn": {
+          "columnName": "end_date",
+          "title": "EndDate",
+          "value": "endDate",
+          "guiControl": "BaseInput"
+        },
+        "columns": [
+          {
+            "columnName": "first_name",
+            "title": "FirstName",
+            "value": "firstName",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "fool_id",
+            "title": "FoolId",
+            "value": "foolId",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "last_name",
+            "title": "LastName",
+            "value": "lastName",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "start_date",
+            "title": "StartDate",
+            "value": "formattedStartDate",
+            "guiControl": "BaseInput"
+          }
+        ]
+      },
+      "edit": {
+        "columns": [
+          {
+            "columnName": "end_date",
+            "title": "EndDate",
+            "value": "endDate",
+            "guiControl": "BaseDatepicker",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "first_name",
+            "title": "FirstName",
+            "value": "firstName",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "fool_id",
+            "title": "FoolId",
+            "value": "foolId",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "last_name",
+            "title": "LastName",
+            "value": "lastName",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "start_date",
+            "title": "StartDate",
+            "value": "startDate",
+            "guiControl": "BaseDatepickerWithTime",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          }
+        ]
+      }
+    },
+    {
+      "tableName": "address",
+      "allowAttachedFiles": false,
+      "list": {
+        "firstColumn": {
+          "columnName": "address",
+          "title": "Address",
+          "value": "address",
+          "guiControl": "BaseInput"
+        },
+        "columns": [
+          {
+            "columnName": "address2",
+            "title": "Address2",
+            "value": "address2",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "address_id",
+            "title": "AddressId",
+            "value": "addressId",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "city_id",
+            "title": "CityId",
+            "value": "cityId",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "district",
+            "title": "District",
+            "value": "district",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "phone",
+            "title": "Phone",
+            "value": "phone",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "postal_code",
+            "title": "PostalCode",
+            "value": "postalCode",
+            "guiControl": "BaseInput"
+          }
+        ]
+      },
+      "edit": {
+        "columns": [
+          {
+            "columnName": "address",
+            "title": "Address",
+            "value": "address",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "address2",
+            "title": "Address2",
+            "value": "address2",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "address_id",
+            "title": "AddressId",
+            "value": "addressId",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "city_id",
+            "title": "CityId",
+            "value": "cityId",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "district",
+            "title": "District",
+            "value": "district",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "phone",
+            "title": "Phone",
+            "value": "phone",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "postal_code",
+            "title": "PostalCode",
+            "value": "postalCode",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          }
+        ]
+      }
+    },
+    {
+      "tableName": "source",
+      "allowAttachedFiles": false,
+      "list": {
+        "firstColumn": {
+          "columnName": "id",
+          "title": "Id",
+          "value": "id",
+          "guiControl": "BaseInput"
+        },
+        "columns": [
+          {
+            "columnName": "source_text",
+            "title": "SourceText",
+            "value": "sourceText",
+            "guiControl": "BaseInput"
+          }
+        ]
+      },
+      "edit": {
+        "columns": [
+          {
+            "columnName": "id",
+            "title": "Id",
+            "value": "id",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "source_text",
+            "title": "SourceText",
+            "value": "sourceText",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          }
+        ]
+      }
+    },
+    {
+      "tableName": "tag",
+      "allowAttachedFiles": true,
+      "list": {
+        "firstColumn": {
+          "columnName": "id",
+          "title": "Id",
+          "value": "id",
+          "guiControl": "BaseInput"
+        },
+        "columns": [
+          {
+            "columnName": "tag_count",
+            "title": "TagCount",
+            "value": "tagCount",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "tag_first_letter",
+            "title": "TagFirstLetter",
+            "value": "tagFirstLetter",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "tag_name",
+            "title": "TagName",
+            "value": "tagName",
+            "guiControl": "BaseInput"
+          }
+        ]
+      },
+      "edit": {
+        "columns": [
+          {
+            "columnName": "id",
+            "title": "Id",
+            "value": "id",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "tag_count",
+            "title": "TagCount",
+            "value": "tagCount",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "tag_first_letter",
+            "title": "TagFirstLetter",
+            "value": "tagFirstLetter",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "tag_name",
+            "title": "TagName",
+            "value": "tagName",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          }
+        ]
+      }
+    },
+    {
+      "tableName": "film_actor",
+      "allowAttachedFiles": false,
+      "list": {
+        "firstColumn": {
+          "columnName": "actor_id",
+          "title": "ActorId",
+          "value": "actorId",
+          "guiControl": "BaseInput"
+        },
+        "columns": [
+          {
+            "columnName": "film_id",
+            "title": "FilmId",
+            "value": "filmId",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "last_update",
+            "title": "LastUpdate",
+            "value": "lastUpdate",
+            "guiControl": "BaseInput"
+          }
+        ]
+      },
+      "edit": {
+        "columns": [
+          {
+            "columnName": "actor_id",
+            "title": "ActorId",
+            "value": "actorId",
+            "guiControl": "BaseSelect",
+            "selectOptions": " actorId_actors",
+            "selectValue": "firstName",
+            "selectKey": "actorId",
+            "selectTableName": "actor"
+          },
+          {
+            "columnName": "film_id",
+            "title": "FilmId",
+            "value": "filmId",
+            "guiControl": "BaseSelect",
+            "selectOptions": " filmId_films",
+            "selectValue": "description",
+            "selectKey": "filmId",
+            "selectTableName": "film"
+          },
+          {
+            "columnName": "last_update",
+            "title": "LastUpdate",
+            "value": "lastUpdate",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          }
+        ]
+      }
+    },
+    {
+      "tableName": "author",
+      "allowAttachedFiles": false,
+      "list": {
+        "firstColumn": {
+          "columnName": "article_count",
+          "title": "ArticleCount",
+          "value": "articleCount",
+          "guiControl": "BaseInput"
+        },
+        "columns": [
+          {
+            "columnName": "author_name",
+            "title": "AuthorName",
+            "value": "authorName",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "author_name_first_letter",
+            "title": "AuthorNameFirstLetter",
+            "value": "authorNameFirstLetter",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "id",
+            "title": "Id",
+            "value": "id",
+            "guiControl": "BaseInput"
+          }
+        ]
+      },
+      "edit": {
+        "columns": [
+          {
+            "columnName": "article_count",
+            "title": "ArticleCount",
+            "value": "articleCount",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "author_name",
+            "title": "AuthorName",
+            "value": "authorName",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "author_name_first_letter",
+            "title": "AuthorNameFirstLetter",
+            "value": "authorNameFirstLetter",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "id",
+            "title": "Id",
+            "value": "id",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          }
+        ]
+      }
+    },
+    {
+      "tableName": "quote",
+      "allowAttachedFiles": false,
+      "list": {
+        "firstColumn": {
+          "columnName": "author_id",
+          "title": "AuthorId",
+          "value": "authorId",
+          "guiControl": "BaseInput"
+        },
+        "columns": [
+          {
+            "columnName": "id",
+            "title": "Id",
+            "value": "id",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "quote_text",
+            "title": "QuoteText",
+            "value": "quoteText",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "source_id",
+            "title": "SourceId",
+            "value": "sourceId",
+            "guiControl": "BaseInput"
+          }
+        ]
+      },
+      "edit": {
+        "columns": [
+          {
+            "columnName": "author_id",
+            "title": "AuthorId",
+            "value": "authorId",
+            "guiControl": "BaseSelect",
+            "selectOptions": " authorId_authors",
+            "selectValue": "articleCount",
+            "selectKey": "id",
+            "selectTableName": "author"
+          },
+          {
+            "columnName": "id",
+            "title": "Id",
+            "value": "id",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "quote_text",
+            "title": "QuoteText",
+            "value": "quoteText",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "source_id",
+            "title": "SourceId",
+            "value": "sourceId",
+            "guiControl": "BaseSelect",
+            "selectOptions": " sourceId_sources",
+            "selectValue": "sourceText",
+            "selectKey": "id",
+            "selectTableName": "source"
+          }
+        ]
+      }
+    },
+    {
+      "tableName": "language",
+      "allowAttachedFiles": false,
+      "list": {
+        "firstColumn": {
+          "columnName": "language_id",
+          "title": "LanguageId",
+          "value": "languageId",
+          "guiControl": "BaseInput"
+        },
+        "columns": [
+          {
+            "columnName": "last_update",
+            "title": "LastUpdate",
+            "value": "lastUpdate",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "name",
+            "title": "Name",
+            "value": "name",
+            "guiControl": "BaseInput"
+          }
+        ]
+      },
+      "edit": {
+        "columns": [
+          {
+            "columnName": "language_id",
+            "title": "LanguageId",
+            "value": "languageId",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "last_update",
+            "title": "LastUpdate",
+            "value": "lastUpdate",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "name",
+            "title": "Name",
+            "value": "name",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          }
+        ]
+      }
+    },
+    {
+      "tableName": "film",
+      "allowAttachedFiles": false,
+      "list": {
+        "firstColumn": {
+          "columnName": "description",
+          "title": "Description",
+          "value": "description",
+          "guiControl": "BaseInput"
+        },
+        "columns": [
+          {
+            "columnName": "film_id",
+            "title": "FilmId",
+            "value": "filmId",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "language_id",
+            "title": "LanguageId",
+            "value": "languageId",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "length",
+            "title": "Length",
+            "value": "length",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "original_language_id",
+            "title": "OriginalLanguageId",
+            "value": "originalLanguageId",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "release_year",
+            "title": "ReleaseYear",
+            "value": "releaseYear",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "rental_duration",
+            "title": "RentalDuration",
+            "value": "rentalDuration",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "rental_rate",
+            "title": "RentalRate",
+            "value": "rentalRate",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "replacement_cost",
+            "title": "ReplacementCost",
+            "value": "replacementCost",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "title",
+            "title": "Title",
+            "value": "title",
+            "guiControl": "BaseInput"
+          }
+        ]
+      },
+      "edit": {
+        "columns": [
+          {
+            "columnName": "description",
+            "title": "Description",
+            "value": "description",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "film_id",
+            "title": "FilmId",
+            "value": "filmId",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "language_id",
+            "title": "LanguageId",
+            "value": "languageId",
+            "guiControl": "BaseSelect",
+            "selectOptions": " languageId_languages",
+            "selectValue": "name",
+            "selectKey": "languageId",
+            "selectTableName": "language"
+          },
+          {
+            "columnName": "length",
+            "title": "Length",
+            "value": "length",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "original_language_id",
+            "title": "OriginalLanguageId",
+            "value": "originalLanguageId",
+            "guiControl": "BaseSelect",
+            "selectOptions": " originalLanguageId_languages",
+            "selectValue": "name",
+            "selectKey": "languageId",
+            "selectTableName": "language"
+          },
+          {
+            "columnName": "release_year",
+            "title": "ReleaseYear",
+            "value": "releaseYear",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "rental_duration",
+            "title": "RentalDuration",
+            "value": "rentalDuration",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "rental_rate",
+            "title": "RentalRate",
+            "value": "rentalRate",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "replacement_cost",
+            "title": "ReplacementCost",
+            "value": "replacementCost",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "title",
+            "title": "Title",
+            "value": "title",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          }
+        ]
+      }
+    },
+    {
+      "tableName": "fool",
+      "allowAttachedFiles": false,
+      "list": {
+        "firstColumn": {
+          "columnName": "first_name",
+          "title": "FirstName",
+          "value": "firstName",
+          "guiControl": "BaseInput"
+        },
+        "columns": [
+          {
+            "columnName": "fool_id",
+            "title": "FoolId",
+            "value": "foolId",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "last_name",
+            "title": "LastName",
+            "value": "lastName",
+            "guiControl": "BaseInput"
+          }
+        ]
+      },
+      "edit": {
+        "columns": [
+          {
+            "columnName": "first_name",
+            "title": "FirstName",
+            "value": "firstName",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "fool_id",
+            "title": "FoolId",
+            "value": "foolId",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "last_name",
+            "title": "LastName",
+            "value": "lastName",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          }
+        ]
+      }
+    },
+    {
+      "tableName": "actor",
+      "allowAttachedFiles": false,
+      "list": {
+        "firstColumn": {
+          "columnName": "actor_id",
+          "title": "ActorId",
+          "value": "actorId",
+          "guiControl": "BaseInput"
+        },
+        "columns": [
+          {
+            "columnName": "first_name",
+            "title": "FirstName",
+            "value": "firstName",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "last_name",
+            "title": "LastName",
+            "value": "lastName",
+            "guiControl": "BaseInput"
+          }
+        ]
+      },
+      "edit": {
+        "columns": [
+          {
+            "columnName": "actor_id",
+            "title": "ActorId",
+            "value": "actorId",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "first_name",
+            "title": "FirstName",
+            "value": "firstName",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "last_name",
+            "title": "LastName",
+            "value": "lastName",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          }
+        ]
+      }
+    },
+    {
+      "tableName": "s3_file",
+      "allowAttachedFiles": false,
+      "list": {
+        "firstColumn": {
+          "columnName": "bucket",
+          "title": "Bucket",
+          "value": "bucket",
+          "guiControl": "BaseInput"
+        },
+        "columns": [
+          {
+            "columnName": "file_name",
+            "title": "FileName",
+            "value": "fileName",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "file_type",
+            "title": "FileType",
+            "value": "fileType",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "id",
+            "title": "Id",
+            "value": "id",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "table_id",
+            "title": "TableId",
+            "value": "tableId",
+            "guiControl": "BaseInput"
+          },
+          {
+            "columnName": "table_name",
+            "title": "TableName",
+            "value": "tableName",
+            "guiControl": "BaseInput"
+          }
+        ]
+      },
+      "edit": {
+        "columns": [
+          {
+            "columnName": "bucket",
+            "title": "Bucket",
+            "value": "bucket",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "file_name",
+            "title": "FileName",
+            "value": "fileName",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "file_type",
+            "title": "FileType",
+            "value": "fileType",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "id",
+            "title": "Id",
+            "value": "id",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "table_id",
+            "title": "TableId",
+            "value": "tableId",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          },
+          {
+            "columnName": "table_name",
+            "title": "TableName",
+            "value": "tableName",
+            "guiControl": "BaseInput",
+            "selectOptions": "",
+            "selectValue": "",
+            "selectKey": "",
+            "selectTableName": ""
+          }
+        ]
+      }
+    }
+  ]
+}

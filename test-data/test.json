@@ -1,0 +1,26 @@
+{
+  "templates": [
+    {
+      "templateFile": "../test-data/test.tmpl",
+      "generatedFileName": "test.txt",
+      "generatedFolderName": "",
+      "minimumGeneratedFileLength": 0,
+      "outputPath": "../UnitTestResults",
+      "overwriteFile": true
+    }
+  ],
+  "tags": [
+    {
+      "tagName": "Namespace",
+      "value": "QuoteApp"
+    },
+    {
+      "tagName": "DbContextName",
+      "value": "DataContext"
+    },
+    {
+      "tagName": "RepositoryName",
+      "value": "QuoteAppRepository"
+    }
+  ]
+}
