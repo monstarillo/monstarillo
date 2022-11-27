@@ -27,7 +27,18 @@ func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui 
 	context := new(MonstarilloContext)
 	context.Tables = tablesToProcess
 
-	err := WriteTablesToJson(context.Tables, "tables.json")
+	dirname, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fileName := filepath.Join(dirname, ".monstarillo", "tables.json")
+	if _, err = os.Stat(fileName); os.IsNotExist(err) {
+		err = os.MkdirAll(filepath.Dir(fileName), 0755)
+		check(err) // path/to/whatever exists
+	}
+
+	err = WriteTablesToJson(context.Tables, filepath.Join(dirname, ".monstarillo", "tables.json"))
 	if err != nil {
 		log.Fatal(err)
 		return
@@ -140,7 +151,11 @@ func WriteContextToJson(context *MonstarilloContext) error {
 		return err
 	}
 
-	err = WriteFile(strContext, "context.json")
+	dirname, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = WriteFile(strContext, filepath.Join(dirname, ".monstarillo", "context.json"))
 
 	if err != nil {
 		fmt.Println(err)

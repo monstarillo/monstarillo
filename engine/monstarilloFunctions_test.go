@@ -3,16 +3,29 @@ package engine
 import (
 	"fmt"
 	"io"
+	"log"
 	"os"
+	"path/filepath"
 	"testing"
 )
 
 func CopyTestTablesAndContextJson() {
-	_, err := copyFile("../test-data/tables.json", "tables.json")
+
+	dirname, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fileName := filepath.Join(dirname, ".monstarillo", "tables.json")
+	if _, err = os.Stat(fileName); os.IsNotExist(err) {
+		err = os.MkdirAll(filepath.Dir(fileName), 0755)
+		check(err) // path/to/whatever exists
+	}
+
+	_, err = copyFile("../test-data/tables.json", filepath.Join(dirname, ".monstarillo", "tables.json"))
 	if err != nil {
 		return
 	}
-	_, err = copyFile("../test-data/context.json", "context.json")
+	_, err = copyFile("../test-data/context.json", filepath.Join(dirname, ".monstarillo", "context.json"))
 	if err != nil {
 		return
 	}
@@ -96,7 +109,7 @@ func TestGetEditSelectValueForColumn(t *testing.T) {
 	}
 }
 
-//getColumnCountByDataType
+// getColumnCountByDataType
 func TestGetColumnCountByDataType(t *testing.T) {
 	value := getColumnCountByDataType("address", "varchar")
 	if value != 5 {

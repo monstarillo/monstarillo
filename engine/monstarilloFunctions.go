@@ -4,7 +4,9 @@ import (
 	pluralize "github.com/gertd/go-pluralize"
 	"github.com/iancoleman/strcase"
 	"github.com/monstarillo/monstarillo/models"
+	"log"
 	"os"
+	"path/filepath"
 	"strings"
 	"text/template"
 )
@@ -27,8 +29,16 @@ var funcMap = template.FuncMap{
 	"GoIntCast":                     GoIntCast,
 }
 
+func getHomeDirectory() string {
+	dirname, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatal(err)
+	}
+	return filepath.Join(dirname, ".monstarillo")
+}
+
 func getTable(tableName string) models.Table {
-	tables := models.ReadTables("tables.json")
+	tables := models.ReadTables(filepath.Join(getHomeDirectory(), "tables.json"))
 	for _, t := range tables {
 		if t.TableName == tableName {
 			return t
@@ -40,7 +50,7 @@ func getTable(tableName string) models.Table {
 }
 
 func getTableFirstPk(tableName string) string {
-	tables := models.ReadTables("tables.json")
+	tables := models.ReadTables(filepath.Join(getHomeDirectory(), "tables.json"))
 	for _, t := range tables {
 		if t.TableName == tableName {
 			return t.GetPrimaryColumns()[0].ColumnName
@@ -51,7 +61,7 @@ func getTableFirstPk(tableName string) string {
 }
 
 func getTableSecondColumn(tableName string) string {
-	tables := models.ReadTables("tables.json")
+	tables := models.ReadTables(filepath.Join(getHomeDirectory(), "tables.json"))
 
 	pkColumn := getTableFirstPk(tableName)
 	for _, t := range tables {
@@ -87,11 +97,11 @@ func getColumnCountByDataType(tableName, dataType string) int {
 }
 
 func makePlural(s string) string {
-	pluralize := pluralize.NewClient()
-	if pluralize.IsPlural(s) {
+	client := pluralize.NewClient()
+	if client.IsPlural(s) {
 		return s
 	}
-	return pluralize.Plural(s)
+	return client.Plural(s)
 }
 
 func makeCamelCase(s string) string {
@@ -135,11 +145,11 @@ func GetFkTableNamePlural(tableName, columnName string) string {
 
 	for _, fk := range t.ForeignKeys {
 		if fk.FkColumnName == columnName {
-			pluralize := pluralize.NewClient()
-			if pluralize.IsPlural(fk.PkTableName) {
+			client := pluralize.NewClient()
+			if client.IsPlural(fk.PkTableName) {
 				return strcase.ToLowerCamel(t.TableName)
 			}
-			return strcase.ToLowerCamel(pluralize.Plural(fk.PkTableName))
+			return strcase.ToLowerCamel(client.Plural(fk.PkTableName))
 		}
 	}
 
@@ -147,7 +157,7 @@ func GetFkTableNamePlural(tableName, columnName string) string {
 }
 
 func GetEditSelectKeyForColumn(tableName, columnName string) string {
-	context := ReadMonstrilloContext("context.json")
+	context := ReadMonstrilloContext(filepath.Join(getHomeDirectory(), "context.json"))
 
 	for _, t := range context.GuiListTables.Tables {
 		if t.TableName == tableName {
@@ -158,7 +168,7 @@ func GetEditSelectKeyForColumn(tableName, columnName string) string {
 }
 
 func GetEditSelectValueForColumn(tableName, columnName string) string {
-	context := ReadMonstrilloContext("context.json")
+	context := ReadMonstrilloContext(filepath.Join(getHomeDirectory(), "context.json"))
 
 	for _, t := range context.GuiListTables.Tables {
 		if t.TableName == tableName {

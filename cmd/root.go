@@ -5,7 +5,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+	http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,7 +30,7 @@ var rootCmd = &cobra.Command{
 	Use:     "monstarillo",
 	Short:   "A code generator",
 	Long:    `Monstarillo is a template based code generator.`,
-	Version: "v.0.0.9",
+	Version: "v.0.0.10",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
