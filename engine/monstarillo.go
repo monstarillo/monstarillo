@@ -9,6 +9,7 @@ import (
 	"github.com/go-easygen/easygen/egFilePath"
 	"github.com/go-easygen/easygen/egVar"
 	"github.com/monstarillo/monstarillo/models"
+	"io"
 	"log"
 	"os"
 	"path/filepath"
@@ -113,6 +114,11 @@ func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui 
 				break
 			}
 
+			if ts.Templates[z].CopyOnly == true {
+				copyFile(templatePath, fileName)
+				break
+			}
+
 			f, err := os.OpenFile(fileName, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0600)
 			if err != nil {
 				log.Fatal(err)
@@ -142,6 +148,30 @@ func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui 
 		z++
 	}
 
+}
+
+func copyFile(src, dst string) {
+	if _, err := os.Stat(dst); os.IsNotExist(err) {
+		err = os.MkdirAll(filepath.Dir(dst), 0755)
+		check(err) // path/to/whatever exists
+	}
+	fin, err := os.Open(src)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer fin.Close()
+
+	fout, err := os.Create(dst)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer fout.Close()
+
+	_, err = io.Copy(fout, fin)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func WriteContextToJson(context *MonstarilloContext) error {

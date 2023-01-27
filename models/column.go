@@ -2,6 +2,7 @@ package models
 
 import (
 	strcase "github.com/iancoleman/strcase"
+	"unicode"
 	//"monstarillo/mysql"
 )
 
@@ -36,12 +37,20 @@ func (c *Column) GetCamelCaseColumnName() string {
 	return strcase.ToLowerCamel(c.ColumnName)
 }
 
+func (c *Column) GetTitleCaseColumnName() string {
+	return MakeTitle(strcase.ToCamel(c.ColumnName))
+}
+
 func (c *Column) GetPascalCaseColumnName() string {
 	return strcase.ToCamel(c.ColumnName)
 }
 
 func (c *Column) GetPascalCaseTableName() string {
 	return strcase.ToCamel(c.TableName)
+}
+
+func (c *Column) GetTitleCaseTableName() string {
+	return MakeTitle(strcase.ToCamel(c.TableName))
 }
 
 func (c *Column) GetJavascriptDefaultValue() string {
@@ -339,4 +348,26 @@ func (c *Column) GetSetStringJson() string {
 	default:
 		return ""
 	}
+}
+
+func MakeTitle(s string) string {
+	var parts []string
+	start := 0
+	for end, r := range s {
+		if end != 0 && unicode.IsUpper(r) {
+			parts = append(parts, s[start:end])
+			start = end
+		}
+	}
+	if start != len(s) {
+		parts = append(parts, s[start:])
+	}
+	var title string
+	for i, part := range parts {
+		if i > 0 {
+			title += " "
+		}
+		title += part
+	}
+	return title
 }

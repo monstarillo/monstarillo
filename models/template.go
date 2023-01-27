@@ -19,7 +19,8 @@ type Template struct {
 	UnitTestJsonCSharp string `json:"UnitTestJsonCSharp"`
 	ForeignKeyMapping  string `json:"foreignKeyMapping"`
 
-	MinimumGeneratedFileLength int `json:"minimumGeneratedFileLength"`
+	MinimumGeneratedFileLength int  `json:"minimumGeneratedFileLength"`
+	CopyOnly                   bool `json:"copyOnly"`
 }
 
 type Templates struct {
@@ -39,6 +40,7 @@ func NewTemplate(templateFile, generatedFileName, generatedFolderName, outputPat
 	t.UnitTestJsonJava = ""
 	t.UnitTestJsonJava = ""
 	t.ForeignKeyMapping = ""
+	t.CopyOnly = false
 	//t.AppendFile = false
 	//t.OverwriteFile = true
 
