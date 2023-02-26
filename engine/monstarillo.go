@@ -9,11 +9,79 @@ import (
 	"github.com/go-easygen/easygen/egFilePath"
 	"github.com/go-easygen/easygen/egVar"
 	"github.com/monstarillo/monstarillo/models"
+	"io"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
 )
+
+func ProcessJson(templateFile string) {
+	const jsondata = `{"something":{"a":"valueofa"}, "somethingElse": [1234, 5678]}`
+
+	jsonObject := map[string]interface{}{}
+	if err := json.Unmarshal([]byte(jsondata), &jsonObject); err != nil {
+		panic(err)
+	}
+
+	ts := models.ReadTemplates(templateFile)
+	tmpl0 := easygen.NewTemplate().Customize()
+	tmpl := tmpl0.Funcs(easygen.FuncDefs()).Funcs(egFilePath.FuncDefs()).
+		Funcs(egVar.FuncDefs()).Funcs(egCal.FuncDefs()).Funcs(funcMap)
+	z := 0
+	for range ts.Templates {
+		var templatePathBuffer strings.Builder
+		if err := easygen.Execute0(tmpl, &templatePathBuffer, ts.Templates[z].TemplateFile, jsonObject); err != nil {
+			log.Fatal(err)
+		}
+		templatePath := templatePathBuffer.String()
+
+		fileName := filepath.Join(ts.Templates[z].OutputPath, ts.Templates[z].GeneratedFolderName, ts.Templates[z].GeneratedFileName)
+
+		if _, err := os.Stat(filepath.Dir(fileName)); os.IsNotExist(err) {
+			err := os.MkdirAll(filepath.Dir(fileName), 0755)
+			check(err)
+		}
+		if ts.Templates[z].OverwriteFile {
+			deleteFile(fileName)
+		}
+
+		if ts.Templates[z].OverwriteFile == false && fileExists(fileName) {
+			break
+		}
+
+		if ts.Templates[z].CopyOnly == true {
+			copyFile(templatePath, fileName)
+			break
+		}
+
+		f, err := os.OpenFile(fileName, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0600)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		err = easygen.Execute(tmpl, f, templatePath, jsonObject)
+		if err != nil {
+			return
+		}
+
+		if ts.Templates[z].MinimumGeneratedFileLength > 0 {
+			fi, err := f.Stat()
+			if err != nil {
+				// Could not obtain stat, handle error
+			}
+			if fi.Size() < int64(ts.Templates[z].MinimumGeneratedFileLength) {
+				deleteFile(fileName)
+			}
+		}
+		err = f.Close()
+		if err != nil {
+			return
+		}
+		fmt.Println("Processing template : " + color.BlueString(templatePath))
+		z++
+	}
+}
 
 func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui string) {
 	tmpl0 := easygen.NewTemplate().Customize()
@@ -113,6 +181,11 @@ func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui 
 				break
 			}
 
+			if ts.Templates[z].CopyOnly == true {
+				copyFile(templatePath, fileName)
+				break
+			}
+
 			f, err := os.OpenFile(fileName, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0600)
 			if err != nil {
 				log.Fatal(err)
@@ -142,6 +215,30 @@ func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui 
 		z++
 	}
 
+}
+
+func copyFile(src, dst string) {
+	if _, err := os.Stat(dst); os.IsNotExist(err) {
+		err = os.MkdirAll(filepath.Dir(dst), 0755)
+		check(err) // path/to/whatever exists
+	}
+	fin, err := os.Open(src)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer fin.Close()
+
+	fout, err := os.Create(dst)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer fout.Close()
+
+	_, err = io.Copy(fout, fin)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func WriteContextToJson(context *MonstarilloContext) error {
