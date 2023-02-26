@@ -18,15 +18,10 @@ import (
 // importCmd represents the import command
 var importCmd = &cobra.Command{
 	Use:   "import",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Create a templates.json file from an existing directory",
+	Long:  `Create a templates.json file from an existing directory`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("import called")
+		fmt.Println("importing is fun!!")
 		ignoreFiles, _ := cmd.Flags().GetString("iFiles")
 		ignoreDirectories, _ := cmd.Flags().GetString("iFolders")
 		templates := getTemplates("/Users/patrickwright/code-gen-output/vue-g01", ignoreFiles, ignoreDirectories)
