@@ -80,7 +80,7 @@ func GetPostgresTables(schema, database string) []Table {
 type PostgresColumn struct {
 	OrdinalPosition                                        int
 	NumericPrecision, CharacterMaximumLength, NumericScale *int
-	IsNullable, DataType, IsIdentity, ColumnDefault        string
+	IsNullable, DataType, IsIdentity, ColumnDefault        sql.NullString
 }
 
 type PostgresPrimaryKey struct {
@@ -177,7 +177,7 @@ func GetColumnPostgres(schema, columnName, tableName, database string, primaryKe
 	//fmt.Println("Get Column ---")
 	//fmt.Println(sqlStatement)
 	// Execute the query
-	err := DB.QueryRow(sqlStatement).Scan(&col.IsIdentity, &col.OrdinalPosition, &col.IsNullable, &col.DataType, &col.NumericPrecision, &col.CharacterMaximumLength, &col.NumericScale, &col.NumericScale)
+	err := DB.QueryRow(sqlStatement).Scan(&col.IsIdentity, &col.OrdinalPosition, &col.IsNullable, &col.DataType, &col.NumericPrecision, &col.CharacterMaximumLength, &col.ColumnDefault, &col.NumericScale)
 	if err != nil {
 		log.Printf(sqlStatement)
 		CheckError(err)
@@ -187,7 +187,7 @@ func GetColumnPostgres(schema, columnName, tableName, database string, primaryKe
 	column.ColumnName = columnName
 	column.TableName = tableName
 	column.OrdinalPosition = col.OrdinalPosition
-	column.DataType = col.DataType
+	column.DataType = col.DataType.String
 	column.DatabaseType = "postgres"
 
 	if col.NumericPrecision != nil {
@@ -202,15 +202,15 @@ func GetColumnPostgres(schema, columnName, tableName, database string, primaryKe
 		column.NumericScale = *col.NumericScale
 	}
 
-	if col.IsNullable == "YES" {
+	if col.IsNullable.String == "YES" {
 		column.IsNullable = true
 	} else {
 		column.IsNullable = false
 	}
 
-	if col.IsIdentity == "YES" {
+	if col.IsIdentity.String == "YES" {
 		column.IsAutoIncrement = true
-	} else if strings.Contains(strings.ToUpper(col.ColumnDefault), "NEXTVAL") {
+	} else if strings.Contains(strings.ToUpper(col.ColumnDefault.String), "NEXTVAL") {
 		column.IsAutoIncrement = true
 	} else {
 		column.IsAutoIncrement = false
