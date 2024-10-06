@@ -24,8 +24,9 @@ var importCmd = &cobra.Command{
 		fmt.Println("importing is fun!!")
 		ignoreFiles, _ := cmd.Flags().GetString("iFiles")
 		ignoreDirectories, _ := cmd.Flags().GetString("iFolders")
-		templates := getTemplates("/Users/patrickwright/code-gen-output/vue-g01", ignoreFiles, ignoreDirectories)
-		templateRoot, _ := cmd.Flags().GetString("tFolder") //"/Users/patrickwright/code-gen-output/templatesX"
+		sourceFolder, _ := cmd.Flags().GetString("sFolder")
+		templates := getTemplates(sourceFolder, ignoreFiles, ignoreDirectories)
+		templateRoot, _ := cmd.Flags().GetString("tFolder")
 		if _, err := os.Stat(templateRoot); os.IsNotExist(err) {
 			err := os.MkdirAll(templateRoot, 0755)
 			check(err)
