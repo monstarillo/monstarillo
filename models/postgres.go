@@ -37,7 +37,7 @@ func CheckError(err error) {
 func GetTableNamesPostgres(schema string) []string {
 	var tables []string
 
-	results, err := DB.Query("SELECT table_name from information_schema.tables  where table_schema ='" + schema + "' ")
+	results, err := DB.Query("SELECT table_name from information_schema.tables  where table_schema ='" + schema + "' AND table_type='BASE TABLE'")
 	if err != nil {
 		CheckError(err)
 	}

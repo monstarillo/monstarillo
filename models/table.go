@@ -97,12 +97,47 @@ func (t *Table) HasJavascriptNumberColumn() bool {
 	return response
 }
 
+func (t *Table) HasJavaTypeColumn(javaType string) bool {
+	response := false
+
+	c := 0
+	for range t.Columns {
+		if t.Columns[c].GetJavaDataType() == javaType {
+			response = true
+		}
+		c++
+	}
+	return response
+}
+
 func (t *Table) HasAutoIncrementColumn() bool {
 	response := false
 
 	c := 0
 	for range t.Columns {
 		if t.Columns[c].IsAutoIncrement {
+			response = true
+		}
+		c++
+	}
+	return response
+}
+
+func (t *Table) HasAnyDateColumn() bool {
+	response := false
+
+	c := 0
+	for range t.Columns {
+		if t.Columns[c].DataType == "date" {
+			response = true
+		}
+		if t.Columns[c].DataType == "datetime" {
+			response = true
+		}
+		if t.Columns[c].DataType == "year" {
+			response = true
+		}
+		if t.Columns[c].DataType == "timestamp" {
 			response = true
 		}
 		c++
@@ -118,12 +153,47 @@ func (t *Table) HasDateColumn() bool {
 		if t.Columns[c].DataType == "date" {
 			response = true
 		}
-		if t.Columns[c].DataType == "datetime" {
-			response = true
-		}
+
+		c++
+	}
+	return response
+}
+
+func (t *Table) HasYearColumn() bool {
+	response := false
+
+	c := 0
+	for range t.Columns {
+
 		if t.Columns[c].DataType == "year" {
 			response = true
 		}
+
+		c++
+	}
+	return response
+}
+
+func (t *Table) HasDateTimeColumn() bool {
+	response := false
+
+	c := 0
+	for range t.Columns {
+
+		if t.Columns[c].DataType == "datetime" {
+			response = true
+		}
+
+		c++
+	}
+	return response
+}
+
+func (t *Table) HasTimestampColumn() bool {
+	response := false
+
+	c := 0
+	for range t.Columns {
 		if t.Columns[c].DataType == "timestamp" {
 			response = true
 		}
