@@ -82,7 +82,7 @@ func GetJavascriptDataTypeForPostgres(dataType string, numericPrecision int) str
 func GetJavaDataTypeForPostgres(dataType string, numericPrecision int) string {
 
 	switch dataType {
-	case "varchar", "char", "text", "tinytext", "mediumtext", "bpchar":
+	case "varchar", "char", "text", "tinytext", "mediumtext", "bpchar", "_text", "tsvector":
 		return "String"
 
 	case "date", "year", "datetime":
@@ -116,14 +116,14 @@ func GetJavaDataTypeForPostgres(dataType string, numericPrecision int) string {
 		return "byte[]"
 
 	default:
-		return "Unknown" + "_" + dataType
+		return "String"
 	}
 }
 
 func GetGoDataTypeForPostgres(dataType string) string {
 
 	switch dataType {
-	case "varchar", "char", "text", "tinytext", "mediumtext", "bpchar", "time":
+	case "varchar", "char", "text", "tinytext", "mediumtext", "bpchar", "time", "_text", "tsvector":
 		return "string"
 
 	case "timestamp", "year", "datetime", "date":
@@ -157,7 +157,7 @@ func GetGoDataTypeForPostgres(dataType string) string {
 
 func GetCSharpDataTypeForPostgres(dataType string, numericPrecision int) string {
 	switch dataType {
-	case "varchar", "char", "text", "tinytext", "mediumtext", "bpchar":
+	case "varchar", "char", "text", "tinytext", "mediumtext", "bpchar", "_text", "tsvector":
 		return "string"
 
 	case "date", "datetime", "year", "time":

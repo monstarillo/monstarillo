@@ -17,7 +17,7 @@ func ConnectOracleDB(user, password, server, service string, port int) {
       	(address=(protocol=tcp)(host=` + server + `)(port=` + strconv.Itoa(port) + `))
     )
     (CONNECT_DATA=
-    	(SID=OraDoc)
+    	(SID=` + service + `)
         (SERVER=DEDICATED)
     )
     (SOURCE_ROUTE=yes)

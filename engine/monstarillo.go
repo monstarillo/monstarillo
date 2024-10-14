@@ -192,23 +192,32 @@ func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui 
 			}
 
 			err = easygen.Execute(tmpl, f, templatePath, context)
+
 			if err != nil {
 				return
 			}
-
+			var fileShouldBeDeleted = false
 			if ts.Templates[z].MinimumGeneratedFileLength > 0 {
 				fi, err := f.Stat()
 				if err != nil {
 					// Could not obtain stat, handle error
 				}
+
 				if fi.Size() < int64(ts.Templates[z].MinimumGeneratedFileLength) {
-					deleteFile(fileName)
+
+					fileShouldBeDeleted = true
 				}
 			}
+
 			err = f.Close()
 			if err != nil {
+				fmt.Println(err)
 				return
 			}
+			if fileShouldBeDeleted {
+				deleteFile(fileName)
+			}
+
 			v++
 		}
 
