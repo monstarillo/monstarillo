@@ -30,7 +30,7 @@ var rootCmd = &cobra.Command{
 	Use:     "monstarillo",
 	Short:   "A code generator",
 	Long:    `Monstarillo is a template based code generator.`,
-	Version: "v.0.0.16",
+	Version: "v.0.0.17",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
