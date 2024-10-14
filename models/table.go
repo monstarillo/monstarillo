@@ -44,6 +44,46 @@ func (t *Table) GetPrimaryColumns() []Column {
 	return columns
 }
 
+func (t *Table) GetPrimaryColumnJavaTypesAndVariables() string {
+
+	var primary = ""
+	c := 0
+	var first = true
+	for range t.Columns {
+
+		if t.Columns[c].IsPrimaryKey {
+			if !first {
+				primary += ", "
+			}
+			primary = primary + t.Columns[c].GetJavaDataType() + " " + t.Columns[c].GetCamelCaseColumnName()
+			first = false
+		}
+		c++
+	}
+
+	return primary
+}
+
+func (t *Table) GetPrimaryColumnVariables() string {
+
+	var primary = ""
+	c := 0
+	var first = true
+	for range t.Columns {
+
+		if t.Columns[c].IsPrimaryKey {
+			if !first {
+				primary += ", "
+			}
+			primary += t.Columns[c].GetCamelCaseColumnName()
+			first = false
+		}
+		c++
+	}
+
+	return primary
+}
+
 func (t *Table) GetFirstPrimaryColumn() Column {
 	c := 0
 	for range t.Columns {
