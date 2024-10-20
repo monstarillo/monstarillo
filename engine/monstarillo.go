@@ -39,7 +39,7 @@ func ProcessJson(templateFile string) {
 		fileName := filepath.Join(ts.Templates[z].OutputPath, ts.Templates[z].GeneratedFolderName, ts.Templates[z].GeneratedFileName)
 
 		if _, err := os.Stat(filepath.Dir(fileName)); os.IsNotExist(err) {
-			err := os.MkdirAll(filepath.Dir(fileName), 0755)
+			err := os.MkdirAll(filepath.Dir(fileName), 0777)
 			check(err)
 		}
 		if ts.Templates[z].OverwriteFile {
@@ -55,7 +55,7 @@ func ProcessJson(templateFile string) {
 			break
 		}
 
-		f, err := os.OpenFile(fileName, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0600)
+		f, err := os.OpenFile(fileName, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0777)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -102,7 +102,7 @@ func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui 
 
 	fileName := filepath.Join(dirname, ".monstarillo", "tables.json")
 	if _, err = os.Stat(fileName); os.IsNotExist(err) {
-		err = os.MkdirAll(filepath.Dir(fileName), 0755)
+		err = os.MkdirAll(filepath.Dir(fileName), 0777)
 		check(err) // path/to/whatever exists
 	}
 
@@ -169,7 +169,7 @@ func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui 
 			fileName := filepath.Join(outputPath, folder, file)
 
 			if _, err := os.Stat(filepath.Dir(fileName)); os.IsNotExist(err) {
-				err := os.MkdirAll(filepath.Dir(fileName), 0755)
+				err := os.MkdirAll(filepath.Dir(fileName), 0777)
 				check(err)
 			}
 
@@ -186,7 +186,7 @@ func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui 
 				break
 			}
 
-			f, err := os.OpenFile(fileName, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0600)
+			f, err := os.OpenFile(fileName, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0777)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -228,7 +228,7 @@ func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui 
 
 func copyFile(src, dst string) {
 	if _, err := os.Stat(dst); os.IsNotExist(err) {
-		err = os.MkdirAll(filepath.Dir(dst), 0755)
+		err = os.MkdirAll(filepath.Dir(dst), 0777)
 		check(err) // path/to/whatever exists
 	}
 	fin, err := os.Open(src)
