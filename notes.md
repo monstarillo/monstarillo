@@ -1,0 +1,6 @@
+
+## New Table Methods
+
+GetFirstPrimaryColumnJavaDataType
+GetFirstPrimaryColumnPascalCaseColumnName
+GetFirstPrimaryColumnCamelCaseColumnName
