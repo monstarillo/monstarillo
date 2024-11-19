@@ -231,7 +231,7 @@ func GetCSharpFirstUnitTestValueForPostgres(dataType string) string {
 	case "double":
 		return "4000D"
 
-	case "binary", "varbinary", "blob", "tinyblob", "mediumblob":
+	case "binary", "varbinary", "blob", "tinyblob", "mediumblob", "bytea":
 		return "new byte[]{(byte) 8, (byte) 2}"
 
 	default:
@@ -331,7 +331,7 @@ func GetJavaFirstUnitTestValueForPostgres(dataType string) string {
 		return "new Time(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
 
 	case "timestamp":
-		return "new Timestamp(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
+		return "new Timestamp(System.currentTimeMillis())"
 
 	case "set", "enum", "geometry":
 		return "AA"
@@ -357,7 +357,7 @@ func GetJavaFirstUnitTestValueForPostgres(dataType string) string {
 	case "double":
 		return "new Double(4)"
 
-	case "binary", "varbinary", "blob", "tinyblob", "mediumblob":
+	case "binary", "varbinary", "blob", "tinyblob", "mediumblob", "bytea":
 		return "new byte[]{(byte) 8, (byte) 2}"
 
 	default:
@@ -375,7 +375,7 @@ func GetJavaSecondUnitTestValueForPostgres(dataType string) string {
 		return "new Time(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
 
 	case "timestamp":
-		return "new Timestamp(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
+		return "new Timestamp(System.currentTimeMillis())"
 
 	case "set", "enum", "geometry":
 		return "BB"
@@ -401,7 +401,7 @@ func GetJavaSecondUnitTestValueForPostgres(dataType string) string {
 	case "double":
 		return "new Double(44)"
 
-	case "binary", "varbinary", "blob", "tinyblob", "mediumblob":
+	case "binary", "varbinary", "blob", "tinyblob", "mediumblob", "bytea":
 		return "new byte[]{(byte) 88, (byte) 22}"
 
 	default:
