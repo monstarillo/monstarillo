@@ -94,6 +94,40 @@ func (t *Table) GetFirstPrimaryColumn() Column {
 	}
 	return Column{}
 }
+
+func (t *Table) GetFirstPrimaryColumnJavaDataType() string {
+	c := 0
+	for range t.Columns {
+		if t.Columns[c].IsPrimaryKey {
+			return t.Columns[c].GetJavaDataType()
+		}
+		c++
+	}
+	return ""
+}
+
+func (t *Table) GetFirstPrimaryColumnCamelCaseColumnName() string {
+	c := 0
+	for range t.Columns {
+		if t.Columns[c].IsPrimaryKey {
+			return t.Columns[c].GetCamelCaseColumnName()
+		}
+		c++
+	}
+	return ""
+}
+
+func (t *Table) GetFirstPrimaryColumnPascalCaseColumnName() string {
+	c := 0
+	for range t.Columns {
+		if t.Columns[c].IsPrimaryKey {
+			return t.Columns[c].GetPascalCaseColumnName()
+		}
+		c++
+	}
+	return ""
+}
+
 func (t *Table) HasCompositePrimaryKey() bool {
 	return len(t.GetPrimaryColumns()) > 1
 }
