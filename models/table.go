@@ -106,6 +106,37 @@ func (t *Table) GetFirstPrimaryColumnJavaDataType() string {
 	return ""
 }
 
+func (t *Table) GetFirstPrimaryColumnJavaFirstUnitTestValue() string {
+	c := 0
+	for range t.Columns {
+		if t.Columns[c].IsPrimaryKey {
+			return t.Columns[c].GetJavaFirstUnitTestValue()
+		}
+		c++
+	}
+	return ""
+}
+
+func (t *Table) GetFirstPrimaryColumnSetString() string {
+	c := 0
+	for range t.Columns {
+		if t.Columns[c].IsPrimaryKey {
+			return t.Columns[c].GetSetString()
+		}
+		c++
+	}
+	return ""
+}
+func (t *Table) GetFirstPrimaryColumnJavaSecondUnitTestValue() string {
+	c := 0
+	for range t.Columns {
+		if t.Columns[c].IsPrimaryKey {
+			return t.Columns[c].GetJavaSecondUnitTestValue()
+		}
+		c++
+	}
+	return ""
+}
 func (t *Table) GetFirstPrimaryColumnCamelCaseColumnName() string {
 	c := 0
 	for range t.Columns {
@@ -337,6 +368,17 @@ func (t *Table) GetJavaFirstPrimaryUnitTestValue() string {
 	return ""
 }
 
+func (t *Table) GetJavaFirstPrimaryUnitTestValueAsString() string {
+	c := 0
+	for range t.Columns {
+		if t.Columns[c].IsPrimaryKey {
+			return strings.Replace(t.Columns[c].GetJavaFirstUnitTestValue(), "L", "", 1)
+		}
+		c++
+	}
+	return ""
+}
+
 func (t *Table) GetJavaSecondPrimaryUnitTestValue() string {
 	c := 0
 	for range t.Columns {
@@ -348,6 +390,16 @@ func (t *Table) GetJavaSecondPrimaryUnitTestValue() string {
 	return ""
 }
 
+func (t *Table) GetJavaSecondPrimaryUnitTestValueAsString() string {
+	c := 0
+	for range t.Columns {
+		if t.Columns[c].IsPrimaryKey {
+			return strings.Replace(t.Columns[c].GetJavaSecondUnitTestValue(), "L", "", 1)
+		}
+		c++
+	}
+	return ""
+}
 func (t *Table) GetCSharpFirstPrimaryUnitTestValue() string {
 	c := 0
 	for range t.Columns {
