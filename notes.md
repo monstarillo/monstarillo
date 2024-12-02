@@ -16,6 +16,9 @@ GetJavaFirstPrimaryUnitTestValueAsString
 GetJavaSecondPrimaryUnitTestValueAsString
 
 
+GetFirstPrimarySetString
+
+
 ## New Column Methods
 GetJavaFirstUnitTestValueAsString
 GetJavaSecondUnitTestValueAsString

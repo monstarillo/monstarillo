@@ -368,6 +368,17 @@ func (t *Table) GetJavaFirstPrimaryUnitTestValue() string {
 	return ""
 }
 
+func (t *Table) GetFirstPrimarySetString() string {
+	c := 0
+	for range t.Columns {
+		if t.Columns[c].IsPrimaryKey {
+			return strings.Replace(t.Columns[c].GetSetString(), "L", "", 1)
+		}
+		c++
+	}
+	return ""
+}
+
 func (t *Table) GetJavaFirstPrimaryUnitTestValueAsString() string {
 	c := 0
 	for range t.Columns {
