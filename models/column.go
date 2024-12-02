@@ -2,6 +2,7 @@ package models
 
 import (
 	strcase "github.com/iancoleman/strcase"
+	"strings"
 	"unicode"
 	//"monstarillo/mysql"
 )
@@ -228,6 +229,25 @@ func (c *Column) GetJavaFirstUnitTestValue() string {
 	return "Unknown" + "_" + c.DataType
 }
 
+func (c *Column) GetJavaFirstUnitTestValueAsString() string {
+
+	if c.DatabaseType == "mysql" {
+		return strings.Replace(GetJavaFirstUnitTestValueForMySql(c.DataType), "L", "", 1)
+	} else if c.DatabaseType == "postgres" {
+		return strings.Replace(GetJavaFirstUnitTestValueForPostgres(c.DataType), "L", "", 1)
+	}
+	return "Unknown" + "_" + c.DataType
+}
+
+func (c *Column) GetJavaSecondUnitTestValueAsString() string {
+
+	if c.DatabaseType == "mysql" {
+		return strings.Replace(GetJavaSecondUnitTestValueForMySql(c.DataType), "L", "", 1)
+	} else if c.DatabaseType == "postgres" {
+		return strings.Replace(GetJavaSecondUnitTestValueForPostgres(c.DataType), "L", "", 1)
+	}
+	return "Unknown" + "_" + c.DataType
+}
 func (c *Column) GetJavaSecondUnitTestValue() string {
 
 	if c.DatabaseType == "mysql" {

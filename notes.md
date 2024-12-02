@@ -4,3 +4,21 @@
 GetFirstPrimaryColumnJavaDataType
 GetFirstPrimaryColumnPascalCaseColumnName
 GetFirstPrimaryColumnCamelCaseColumnName
+
+GetFirstPrimaryColumnJavaFirstUnitTestValue
+GetFirstPrimaryColumnJavaSecondUnitTestValue
+GetFirstPrimaryColumnSetString
+
+GetJavaFirstPrimaryUnitTestValue
+GetJavaSecondPrimaryUnitTestValue
+
+GetJavaFirstPrimaryUnitTestValueAsString
+GetJavaSecondPrimaryUnitTestValueAsString
+
+
+GetFirstPrimarySetString
+
+
+## New Column Methods
+GetJavaFirstUnitTestValueAsString
+GetJavaSecondUnitTestValueAsString
