@@ -3,6 +3,8 @@ name: docker
 on:
   workflow_dispatch:
     branches: [ main ]
+    tags:
+      - 'v*'
   push:
     branches:
       - main
@@ -29,4 +31,5 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: monstarillo/monstarillo:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
