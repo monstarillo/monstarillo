@@ -37,8 +37,8 @@ func GetMssqlTables(schema, database string) []Table {
 
 		fmt.Println(primaryKeys)
 		//
-		table.ForeignKeys = GetMssqlForeignKeys(schema, database, table.TableName, primaryKeys, identityColumns)
-		table.ReferencedForeignKeys = GetMssqlReferencedForeignKeys(schema, database, table.TableName, primaryKeys, identityColumns)
+		table.ForeignKeys = GetMssqlForeignKeys(table.TableName, primaryKeys, identityColumns)
+		table.ReferencedForeignKeys = GetMssqlReferencedForeignKeys(table.TableName, primaryKeys, identityColumns)
 		table.Columns = GetMssqlColumns(tableNames[a], schema, database, table.ForeignKeys)
 		tables = append(tables, table)
 		a++
@@ -67,7 +67,7 @@ func GetTableNamesMssql(database string, schema string) []string {
 	return tables
 }
 
-func GetMssqlForeignKeys(schema, database, tableName string, primaryKeys []string, identityColumns []string) []ForeignKey {
+func GetMssqlForeignKeys(tableName string, primaryKeys []string, identityColumns []string) []ForeignKey {
 	var fks []ForeignKey
 
 	sqlStatement := "SELECT " +
@@ -193,7 +193,7 @@ func GetColumnMssql(columnName, tableName string, primaryKeys []string, identity
 
 	return column
 }
-func GetMssqlReferencedForeignKeys(schema, database, tableName string, primaryKeys []string, identityColumns []string) []ForeignKey {
+func GetMssqlReferencedForeignKeys(tableName string, primaryKeys []string, identityColumns []string) []ForeignKey {
 	var fks []ForeignKey
 
 	sqlStatement := "SELECT " +
