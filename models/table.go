@@ -44,6 +44,22 @@ func (t *Table) GetPrimaryColumns() []Column {
 	return columns
 }
 
+func (t *Table) GetPrimaryNonDateColumns() []Column {
+	var columns []Column
+
+	c := 0
+	for range t.Columns {
+		if t.Columns[c].IsPrimaryKey {
+			if t.Columns[c].GetJavascriptDataType() != "Timestamp" && t.Columns[c].GetJavaDataType() != "Date" {
+				columns = append(columns, t.Columns[c])
+			}
+		}
+		c++
+	}
+
+	return columns
+}
+
 func (t *Table) GetPrimaryColumnJavaTypesAndVariables() string {
 
 	var primary = ""
