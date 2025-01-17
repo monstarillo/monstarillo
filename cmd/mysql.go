@@ -1,6 +1,5 @@
 /*
 Copyright © 2022 Patrick Wright
-
 */
 package cmd
 
@@ -30,12 +29,15 @@ database applications against a MySql database.`,
 		gui, _ := cmd.Flags().GetString("gui")
 		port, _ := cmd.Flags().GetInt("port")
 		host, _ := cmd.Flags().GetString("host")
+		caseModel, _ := cmd.Flags().GetString("caseModel")
+		caseProperty, _ := cmd.Flags().GetString("caseProperty")
+		modelsFile, _ := cmd.Flags().GetString("modelsFile")
 
 		database := "tcp(" + host + ":" + strconv.Itoa(port) + ")/" + schema
 		models.ConnectDB(userName, password, database)
 		tables := models.GetTables(schema)
 
-		engine.ProcessTables(tables, unitTestValuesJson, templateFile, gui)
+		engine.ProcessTables(tables, unitTestValuesJson, templateFile, gui, caseModel, caseProperty, modelsFile)
 
 		models.CloseDB()
 	},

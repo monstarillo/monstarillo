@@ -1,6 +1,5 @@
 /*
 Copyright © 2022 Patrick Wright
-
 */
 package cmd
 
@@ -29,10 +28,13 @@ database applications against a Postgres database.`,
 		userName, _ := cmd.Flags().GetString("u")
 		port, _ := cmd.Flags().GetInt("port")
 		host, _ := cmd.Flags().GetString("host")
+		caseModel, _ := cmd.Flags().GetString("caseModel")
+		caseProperty, _ := cmd.Flags().GetString("caseProperty")
+		modelsFile, _ := cmd.Flags().GetString("modelsFile")
 
 		models.ConnectPostgresDB(userName, password, database, host, port)
 		tables := models.GetPostgresTables(schema, database)
-		engine.ProcessTables(tables, unitTestValuesJson, templateFile, gui)
+		engine.ProcessTables(tables, unitTestValuesJson, templateFile, gui, caseModel, caseProperty, modelsFile)
 		models.CloseDB()
 	},
 }
@@ -49,6 +51,9 @@ func init() {
 	postgresCmd.PersistentFlags().String("gui", "", "GUI Tables file")
 	postgresCmd.PersistentFlags().Int("port", 5432, "Database port")
 	postgresCmd.PersistentFlags().String("host", "postgres", "Database host")
+	postgresCmd.PersistentFlags().String("caseModel", "pascal", "Set case of model names")
+	postgresCmd.PersistentFlags().String("caseProperty", "pascal", "Set case of model property names")
+	postgresCmd.PersistentFlags().String("modelsFile", "", "models json file")
 
 	postgresCmd.MarkPersistentFlagRequired("t")
 

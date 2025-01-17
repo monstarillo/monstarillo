@@ -36,7 +36,7 @@ func GetMssqlTables(schema, database string) []Table {
 		identityColumns := GetMssqlIdentityColumns(table.TableName)
 
 		fmt.Println(primaryKeys)
-		//
+
 		table.ForeignKeys = GetMssqlForeignKeys(table.TableName, primaryKeys, identityColumns)
 		table.ReferencedForeignKeys = GetMssqlReferencedForeignKeys(table.TableName, primaryKeys, identityColumns)
 		table.Columns = GetMssqlColumns(tableNames[a], schema, database, table.ForeignKeys)
