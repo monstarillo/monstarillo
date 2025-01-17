@@ -1,6 +1,5 @@
 /*
 Copyright © 2022 Patrick Wright
-
 */
 package cmd
 
@@ -28,11 +27,13 @@ database applications against a Oracle database.`,
 		userName, _ := cmd.Flags().GetString("u")
 		port, _ := cmd.Flags().GetInt("port")
 		service, _ := cmd.Flags().GetString("service")
-
+		caseModel, _ := cmd.Flags().GetString("caseModel")
+		caseProperty, _ := cmd.Flags().GetString("caseProperty")
+		modelsFile, _ := cmd.Flags().GetString("modelsFile")
 		models.ConnectOracleDB(userName, password, server, service, port)
 		tables := models.GetOracleTables(schema)
 
-		engine.ProcessTables(tables, unitTestValuesJson, templateFile, gui)
+		engine.ProcessTables(tables, unitTestValuesJson, templateFile, gui, caseModel, caseProperty, modelsFile)
 		models.CloseDB()
 	},
 }

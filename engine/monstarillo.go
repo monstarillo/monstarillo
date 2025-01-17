@@ -8,6 +8,7 @@ import (
 	"github.com/go-easygen/easygen/egCal"
 	"github.com/go-easygen/easygen/egFilePath"
 	"github.com/go-easygen/easygen/egVar"
+	"github.com/iancoleman/strcase"
 	"github.com/monstarillo/monstarillo/models"
 	"io"
 	"log"
@@ -83,7 +84,7 @@ func ProcessJson(templateFile string) {
 	}
 }
 
-func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui string) {
+func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui, caseModel, caseProperty, modelsFile string) {
 	tmpl0 := easygen.NewTemplate().Customize()
 	tmpl := tmpl0.Funcs(easygen.FuncDefs()).Funcs(egFilePath.FuncDefs()).
 		Funcs(egVar.FuncDefs()).Funcs(egCal.FuncDefs()).Funcs(funcMap)
@@ -91,6 +92,9 @@ func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui 
 	ts := models.ReadTemplates(templateFile)
 
 	tablesToProcess := getTablesToProcess(tables, ts.IncludeTables, ts.IgnoreTables, gui)
+
+	dbModels := models.ReadModels(modelsFile)
+	tablesToProcess = ProcessModelData(tables, caseModel, caseProperty, dbModels)
 
 	context := new(MonstarilloContext)
 	context.Tables = tablesToProcess
@@ -226,6 +230,70 @@ func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui 
 
 }
 
+func ProcessModelData(tables []models.Table, caseModel, caseProperty string, userModels []models.Model) []models.Table {
+
+	var dbModels []models.Model
+	var useUserModels = len(userModels) > 0
+
+	v := 0
+	for range tables {
+		if useUserModels {
+			tables[v].ModelName = models.GetModelNameForTable(userModels, tables[v].TableName)
+		} else {
+			tables[v].ModelName = getCaseValue(caseModel, tables[v].TableName)
+		}
+		var model models.Model
+
+		model.TableName = tables[v].TableName
+		model.ModelName = tables[v].ModelName
+
+		col := 0
+		for range tables[v].Columns {
+			if useUserModels {
+				tables[v].Columns[col].PropertyName = models.GetPropertyNameForModelColumn(userModels, tables[v].TableName, tables[v].Columns[col].ColumnName)
+			} else {
+				tables[v].Columns[col].PropertyName = getCaseValue(caseProperty, tables[v].Columns[col].ColumnName)
+			}
+
+			var modelColumn models.ModelColumn
+			modelColumn.ColumnName = tables[v].Columns[col].ColumnName
+			modelColumn.PropertyName = tables[v].Columns[col].PropertyName
+			model.ModelColumns = append(model.ModelColumns, modelColumn)
+			col++
+		}
+		fmt.Println(tables[v].TableName + " " + tables[v].ModelName)
+		dbModels = append(dbModels, model)
+		v++
+	}
+
+	dirname, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = WriteModelsToJson(dbModels, filepath.Join(dirname, ".monstarillo", "models.json"))
+	if err != nil {
+		return nil
+	}
+	return tables
+}
+
+func getCaseValue(caseToReturn, value string) string {
+	switch caseToReturn {
+	case "pascal":
+		return strcase.ToCamel(value)
+
+	case "camel":
+		return strcase.ToLowerCamel(value)
+	case "kebab":
+		return strcase.ToKebab(value)
+
+	case "snake":
+		return strcase.ToSnake(value)
+
+	}
+	return strcase.ToCamel(value)
+}
+
 func copyFile(src, dst string) {
 	if _, err := os.Stat(dst); os.IsNotExist(err) {
 		err = os.MkdirAll(filepath.Dir(dst), 0777)
@@ -294,6 +362,19 @@ func WriteTablesToJson(tables []models.Table, fileName string) error {
 	}
 
 	err = WriteFile(strTables, fileName)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func WriteModelsToJson(models []models.Model, fileName string) error {
+	modelData, err := json.Marshal(models)
+	if err != nil {
+		return err
+	}
+
+	err = WriteFile(modelData, fileName)
 	if err != nil {
 		return err
 	}
