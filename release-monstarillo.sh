@@ -18,7 +18,7 @@ while getopts "h?v:d:t:" opt; do
     esac
 done
 
-if [ -z "$version" ] || [ -z "$versionDescription"] || [-z "$token"]; then
+if [ -z "$version" ] || [ -z "$versionDescription"] || [ -z "$token"]; then
   echo "version and versionDescription are required"
   exit 1
 fi
