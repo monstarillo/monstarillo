@@ -8,9 +8,9 @@ import (
 )
 
 type Column struct {
-	ColumnName, DataType, DatabaseType, TableName, PkTableName, PkColumnName, PropertyName string
-	IsPrimaryKey, IsNullable, IsAutoIncrement, IsForeignKey                                bool
-	OrdinalPosition, NumericPrecision, NumericScale, CharacterMaximumLength                int
+	ColumnName, DataType, DatabaseType, TableName, PkTableName, PkColumnName string
+	IsPrimaryKey, IsNullable, IsAutoIncrement, IsForeignKey                  bool
+	OrdinalPosition, NumericPrecision, NumericScale, CharacterMaximumLength  int
 }
 
 func NewColumn(columnName, databaseType, tableName string) Column {

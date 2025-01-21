@@ -8,12 +8,13 @@ import (
 )
 
 type Model struct {
-	TableName, ModelName string
-	ModelColumns         []ModelColumn
+	TableName, ModelName, Orm string
+	ModelColumns              []ModelColumn
 }
 
 type ModelColumn struct {
-	ColumnName, PropertyName string
+	ColumnName, PropertyName, OrmType string
+	IsReadOnly                        bool
 }
 
 func GetModelNameForTable(dbModels []Model, tableName string) string {
@@ -24,6 +25,22 @@ func GetModelNameForTable(dbModels []Model, tableName string) string {
 	for range dbModels {
 		if dbModels[c].TableName == tableName {
 			response = dbModels[c].ModelName
+			break
+		}
+		c++
+	}
+
+	return response
+}
+
+func GetOrmForTable(dbModels []Model, tableName string) string {
+
+	response := ""
+
+	c := 0
+	for range dbModels {
+		if dbModels[c].TableName == tableName {
+			response = dbModels[c].Orm
 			break
 		}
 		c++
@@ -43,6 +60,28 @@ func GetPropertyNameForModelColumn(dbModels []Model, tableName, columnName strin
 			for range dbModels[mod].ModelColumns {
 				if dbModels[mod].ModelColumns[col].ColumnName == columnName {
 					response = dbModels[mod].ModelColumns[col].PropertyName
+					break
+				}
+				col++
+			}
+		}
+		mod++
+	}
+
+	return response
+}
+
+func GetOrmTypeForModelColumn(dbModels []Model, tableName, columnName string) string {
+
+	response := ""
+
+	mod := 0
+	for range dbModels {
+		if dbModels[mod].TableName == tableName {
+			col := 0
+			for range dbModels[mod].ModelColumns {
+				if dbModels[mod].ModelColumns[col].ColumnName == columnName {
+					response = dbModels[mod].ModelColumns[col].OrmType
 					break
 				}
 				col++

@@ -15,6 +15,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"text/template"
 )
 
 func ProcessJson(templateFile string) {
@@ -84,7 +85,7 @@ func ProcessJson(templateFile string) {
 	}
 }
 
-func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui, caseModel, caseProperty, modelsFile string) {
+func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui string) {
 	tmpl0 := easygen.NewTemplate().Customize()
 	tmpl := tmpl0.Funcs(easygen.FuncDefs()).Funcs(egFilePath.FuncDefs()).
 		Funcs(egVar.FuncDefs()).Funcs(egCal.FuncDefs()).Funcs(funcMap)
@@ -92,9 +93,6 @@ func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui,
 	ts := models.ReadTemplates(templateFile)
 
 	tablesToProcess := getTablesToProcess(tables, ts.IncludeTables, ts.IgnoreTables, gui)
-
-	dbModels := models.ReadModels(modelsFile)
-	tablesToProcess = ProcessModelData(tables, caseModel, caseProperty, dbModels)
 
 	context := new(MonstarilloContext)
 	context.Tables = tablesToProcess
@@ -128,6 +126,11 @@ func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui,
 		return
 	}
 
+	processTemplates(ts, tmpl, context, tablesToProcess)
+
+}
+
+func processTemplates(ts models.Templates, tmpl *template.Template, context *MonstarilloContext, tablesToProcess []models.Table) {
 	z := 0
 	for range ts.Templates {
 		var templatePathBuffer strings.Builder
@@ -227,7 +230,6 @@ func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui,
 
 		z++
 	}
-
 }
 
 func ProcessModelData(tables []models.Table, caseModel, caseProperty string, userModels []models.Model) []models.Table {
@@ -246,21 +248,37 @@ func ProcessModelData(tables []models.Table, caseModel, caseProperty string, use
 
 		model.TableName = tables[v].TableName
 		model.ModelName = tables[v].ModelName
+		model.Orm = models.GetOrmForTable(userModels, tables[v].TableName)
 
-		col := 0
-		for range tables[v].Columns {
-			if useUserModels {
-				tables[v].Columns[col].PropertyName = models.GetPropertyNameForModelColumn(userModels, tables[v].TableName, tables[v].Columns[col].ColumnName)
-			} else {
-				tables[v].Columns[col].PropertyName = getCaseValue(caseProperty, tables[v].Columns[col].ColumnName)
-			}
-
-			var modelColumn models.ModelColumn
-			modelColumn.ColumnName = tables[v].Columns[col].ColumnName
-			modelColumn.PropertyName = tables[v].Columns[col].PropertyName
-			model.ModelColumns = append(model.ModelColumns, modelColumn)
-			col++
-		}
+		//col := 0
+		//for range tables[v].Columns {
+		//	if useUserModels {
+		//		tables[v].Columns[col].PropertyName = models.GetPropertyNameForModelColumn(userModels, tables[v].TableName, tables[v].Columns[col].ColumnName)
+		//
+		//		ormType := models.GetOrmTypeForModelColumn(userModels, tables[v].TableName, tables[v].Columns[col].ColumnName)
+		//		if len(ormType) > 0 {
+		//			tables[v].Columns[col].ORMType = ormType
+		//		}
+		//		if ormType == "VIRTUAL" {
+		//			if tables[v].DatabaseType == "oracle" {
+		//				tables[v].Columns[col].DataType = "VARCHAR"
+		//			} else {
+		//				tables[v].Columns[col].DataType = "varchar"
+		//			}
+		//		}
+		//
+		//	} else {
+		//		tables[v].Columns[col].PropertyName = getCaseValue(caseProperty, tables[v].Columns[col].ColumnName)
+		//	}
+		//
+		//	var modelColumn models.ModelColumn
+		//	modelColumn.ColumnName = tables[v].Columns[col].ColumnName
+		//	modelColumn.PropertyName = tables[v].Columns[col].PropertyName
+		//	modelColumn.OrmType = tables[v].Columns[col].ORMType
+		//
+		//	model.ModelColumns = append(model.ModelColumns, modelColumn)
+		//	col++
+		//}
 		fmt.Println(tables[v].TableName + " " + tables[v].ModelName)
 		dbModels = append(dbModels, model)
 		v++
