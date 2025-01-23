@@ -8,7 +8,6 @@ import (
 	"github.com/go-easygen/easygen/egCal"
 	"github.com/go-easygen/easygen/egFilePath"
 	"github.com/go-easygen/easygen/egVar"
-	"github.com/iancoleman/strcase"
 	"github.com/monstarillo/monstarillo/models"
 	"io"
 	"log"
@@ -130,6 +129,138 @@ func ProcessTables(tables []models.Table, unitTestValuesJson, templateFile, gui 
 
 }
 
+func ProcessModels(modelsToProcess []models.OrmModel, templateFile string) {
+	tmpl0 := easygen.NewTemplate().Customize()
+	tmpl := tmpl0.Funcs(easygen.FuncDefs()).Funcs(egFilePath.FuncDefs()).
+		Funcs(egVar.FuncDefs()).Funcs(egCal.FuncDefs()).Funcs(funcMap)
+
+	ts := models.ReadTemplates(templateFile)
+
+	context := new(MonstarilloOrmContext)
+	context.Models = modelsToProcess
+
+	dirname, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fileName := filepath.Join(dirname, ".monstarillo", "models.json")
+	if _, err = os.Stat(fileName); os.IsNotExist(err) {
+		err = os.MkdirAll(filepath.Dir(fileName), 0777)
+		check(err)
+	}
+
+	err = WriteModelsToJson(context.Models, filepath.Join(dirname, ".monstarillo", "tables.json"))
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	context.Tags = ts.Tags
+
+	err = WriteOrmContextToJson(context)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	processOrmTemplates(ts, tmpl, context, modelsToProcess)
+
+}
+
+func processOrmTemplates(ts models.Templates, tmpl *template.Template, context *MonstarilloOrmContext, modelsToProcess []models.OrmModel) {
+	z := 0
+	for range ts.Templates {
+		var templatePathBuffer strings.Builder
+		if err := easygen.Execute0(tmpl, &templatePathBuffer, ts.Templates[z].TemplateFile, context); err != nil {
+			log.Fatal(err)
+		}
+		templatePath := templatePathBuffer.String()
+		fmt.Println("Processing template : " + color.BlueString(templatePath))
+		v := 0
+		for range modelsToProcess {
+
+			context.CurrentModel = modelsToProcess[v]
+
+			var fileBuffer strings.Builder
+			if err := easygen.Execute0(tmpl, &fileBuffer, ts.Templates[z].GeneratedFileName, context); err != nil {
+				log.Fatal(err)
+			}
+			file := fileBuffer.String()
+
+			var outputPathBuffer strings.Builder
+			if err := easygen.Execute0(tmpl, &outputPathBuffer, ts.Templates[z].OutputPath, context); err != nil {
+				log.Fatal(err)
+			}
+			outputPath := outputPathBuffer.String()
+
+			var folderBuffer strings.Builder
+			folder := ""
+			if len(ts.Templates[z].GeneratedFolderName) > 0 {
+				if err := easygen.Execute0(tmpl, &folderBuffer, ts.Templates[z].GeneratedFolderName, context); err != nil {
+					log.Fatal(err)
+				}
+				folder = folderBuffer.String()
+			}
+
+			fileName := filepath.Join(outputPath, folder, file)
+
+			if _, err := os.Stat(filepath.Dir(fileName)); os.IsNotExist(err) {
+				err := os.MkdirAll(filepath.Dir(fileName), 0777)
+				check(err)
+			}
+
+			if ts.Templates[z].OverwriteFile {
+				deleteFile(fileName)
+			}
+
+			if ts.Templates[z].OverwriteFile == false && fileExists(fileName) {
+				break
+			}
+
+			if ts.Templates[z].CopyOnly == true {
+				copyFile(templatePath, fileName)
+				break
+			}
+
+			f, err := os.OpenFile(fileName, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0777)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			err = easygen.Execute(tmpl, f, templatePath, context)
+
+			if err != nil {
+				return
+			}
+			var fileShouldBeDeleted = false
+			if ts.Templates[z].MinimumGeneratedFileLength > 0 {
+				fi, err := f.Stat()
+				if err != nil {
+					// Could not obtain stat, handle error
+				}
+
+				if fi.Size() < int64(ts.Templates[z].MinimumGeneratedFileLength) {
+
+					fileShouldBeDeleted = true
+				}
+			}
+
+			err = f.Close()
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+			if fileShouldBeDeleted {
+				deleteFile(fileName)
+			}
+
+			v++
+		}
+
+		z++
+	}
+}
 func processTemplates(ts models.Templates, tmpl *template.Template, context *MonstarilloContext, tablesToProcess []models.Table) {
 	z := 0
 	for range ts.Templates {
@@ -232,86 +363,6 @@ func processTemplates(ts models.Templates, tmpl *template.Template, context *Mon
 	}
 }
 
-func ProcessModelData(tables []models.Table, caseModel, caseProperty string, userModels []models.Model) []models.Table {
-
-	var dbModels []models.Model
-	var useUserModels = len(userModels) > 0
-
-	v := 0
-	for range tables {
-		if useUserModels {
-			tables[v].ModelName = models.GetModelNameForTable(userModels, tables[v].TableName)
-		} else {
-			tables[v].ModelName = getCaseValue(caseModel, tables[v].TableName)
-		}
-		var model models.Model
-
-		model.TableName = tables[v].TableName
-		model.ModelName = tables[v].ModelName
-		model.Orm = models.GetOrmForTable(userModels, tables[v].TableName)
-
-		//col := 0
-		//for range tables[v].Columns {
-		//	if useUserModels {
-		//		tables[v].Columns[col].PropertyName = models.GetPropertyNameForModelColumn(userModels, tables[v].TableName, tables[v].Columns[col].ColumnName)
-		//
-		//		ormType := models.GetOrmTypeForModelColumn(userModels, tables[v].TableName, tables[v].Columns[col].ColumnName)
-		//		if len(ormType) > 0 {
-		//			tables[v].Columns[col].ORMType = ormType
-		//		}
-		//		if ormType == "VIRTUAL" {
-		//			if tables[v].DatabaseType == "oracle" {
-		//				tables[v].Columns[col].DataType = "VARCHAR"
-		//			} else {
-		//				tables[v].Columns[col].DataType = "varchar"
-		//			}
-		//		}
-		//
-		//	} else {
-		//		tables[v].Columns[col].PropertyName = getCaseValue(caseProperty, tables[v].Columns[col].ColumnName)
-		//	}
-		//
-		//	var modelColumn models.ModelColumn
-		//	modelColumn.ColumnName = tables[v].Columns[col].ColumnName
-		//	modelColumn.PropertyName = tables[v].Columns[col].PropertyName
-		//	modelColumn.OrmType = tables[v].Columns[col].ORMType
-		//
-		//	model.ModelColumns = append(model.ModelColumns, modelColumn)
-		//	col++
-		//}
-		fmt.Println(tables[v].TableName + " " + tables[v].ModelName)
-		dbModels = append(dbModels, model)
-		v++
-	}
-
-	dirname, err := os.UserHomeDir()
-	if err != nil {
-		log.Fatal(err)
-	}
-	err = WriteModelsToJson(dbModels, filepath.Join(dirname, ".monstarillo", "models.json"))
-	if err != nil {
-		return nil
-	}
-	return tables
-}
-
-func getCaseValue(caseToReturn, value string) string {
-	switch caseToReturn {
-	case "pascal":
-		return strcase.ToCamel(value)
-
-	case "camel":
-		return strcase.ToLowerCamel(value)
-	case "kebab":
-		return strcase.ToKebab(value)
-
-	case "snake":
-		return strcase.ToSnake(value)
-
-	}
-	return strcase.ToCamel(value)
-}
-
 func copyFile(src, dst string) {
 	if _, err := os.Stat(dst); os.IsNotExist(err) {
 		err = os.MkdirAll(filepath.Dir(dst), 0777)
@@ -357,6 +408,27 @@ func WriteContextToJson(context *MonstarilloContext) error {
 	return nil
 }
 
+func WriteOrmContextToJson(context *MonstarilloOrmContext) error {
+	strContext, err := json.Marshal(context)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+
+	dirname, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = WriteFile(strContext, filepath.Join(dirname, ".monstarillo", "orm-context.json"))
+
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+
+	return nil
+}
+
 func WriteFile(fileData []byte, fileName string) error {
 	f, err := os.Create(fileName)
 	if err != nil {
@@ -386,7 +458,7 @@ func WriteTablesToJson(tables []models.Table, fileName string) error {
 	return nil
 }
 
-func WriteModelsToJson(models []models.Model, fileName string) error {
+func WriteModelsToJson(models []models.OrmModel, fileName string) error {
 	modelData, err := json.Marshal(models)
 	if err != nil {
 		return err

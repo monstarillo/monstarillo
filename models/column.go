@@ -46,6 +46,14 @@ func (c *Column) GetPascalCaseColumnName() string {
 	return strcase.ToCamel(c.ColumnName)
 }
 
+func (c *Column) GetColumnNameInCase(caseToReturn string) string {
+	return getCaseValue(caseToReturn, c.ColumnName)
+}
+
+func (c *Column) GetColumnTableNameInCase(caseToReturn string) string {
+	return getCaseValue(caseToReturn, c.TableName)
+}
+
 func (c *Column) GetPascalCaseTableName() string {
 	return strcase.ToCamel(c.TableName)
 }

@@ -1,9 +1,8 @@
 package models
 
 import (
-	"strings"
-
 	"github.com/iancoleman/strcase"
+	"strings"
 )
 
 type ForeignKey struct {
@@ -21,6 +20,18 @@ func NewForeignKey(constraintName, fkTableName, fkColumnName,
 	fk.PkColumnName = pkColumnName
 
 	return fk
+}
+
+func (f *ForeignKey) GetFkTableNameInCase(caseToReturn string) string {
+	return getCaseValue(caseToReturn, f.FkTableName)
+}
+
+func (f *ForeignKey) GetFkColumnNameInCase(caseToReturn string) string {
+	return getCaseValue(caseToReturn, f.FkColumnName)
+}
+
+func (f *ForeignKey) GetPkColumnNameInCase(caseToReturn string) string {
+	return getCaseValue(caseToReturn, f.PkColumnName)
 }
 
 func (f *ForeignKey) GetCamelCaseFKTableName() string {
@@ -63,9 +74,17 @@ func (f *ForeignKey) GetCamelCaseFKTableNamePlural() string {
 	}
 }
 
-func (f *ForeignKey) GetPascalCaseFKTableNamePlural() string {
+func (f *ForeignKey) GetFKTableNamePluralInCase() string {
 	if strings.HasSuffix(f.FkTableName, "s") {
 		return strcase.ToCamel(f.FkTableName) + "es"
+	} else {
+		return strcase.ToCamel(f.FkTableName) + "s"
+	}
+}
+
+func (f *ForeignKey) GetPascalCaseFKTableNamePlural(caseToReturn string) string {
+	if strings.HasSuffix(f.FkTableName, "s") {
+		return getCaseValue(caseToReturn, f.FkTableName) + "es"
 	} else {
 		return strcase.ToCamel(f.FkTableName) + "s"
 	}
