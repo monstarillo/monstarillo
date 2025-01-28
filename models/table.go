@@ -13,11 +13,11 @@ import (
 
 // Table represents the structure of a database table, including its name, type, columns, and foreign key relationships.
 type Table struct {
-	TableName, DatabaseType, ModelName string
-	Columns                            []Column
-	ForeignKeys                        []ForeignKey
-	ReferencedForeignKeys              []ForeignKey
-	GuiListTable                       GuiListTable
+	TableName, DatabaseType string
+	Columns                 []Column
+	ForeignKeys             []ForeignKey
+	ReferencedForeignKeys   []ForeignKey
+	GuiListTable            GuiListTable
 }
 
 // NewTable creates and returns a new Table instance with the specified table name and database type.
@@ -46,6 +46,10 @@ func (t *Table) GetPrimaryColumns() []Column {
 	}
 
 	return columns
+}
+
+func (t *Table) GetTableNameInCase(caseToReturn string) string {
+	return getCaseValue(caseToReturn, t.TableName)
 }
 
 // GetPrimaryNonDateColumns retrieves all primary key columns from the table that are not of "Date" or "Timestamp" type.

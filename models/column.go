@@ -8,9 +8,9 @@ import (
 )
 
 type Column struct {
-	ColumnName, DataType, DatabaseType, TableName, PkTableName, PkColumnName, PropertyName string
-	IsPrimaryKey, IsNullable, IsAutoIncrement, IsForeignKey                                bool
-	OrdinalPosition, NumericPrecision, NumericScale, CharacterMaximumLength                int
+	ColumnName, DataType, DatabaseType, TableName, PkTableName, PkColumnName string
+	IsPrimaryKey, IsNullable, IsAutoIncrement, IsForeignKey                  bool
+	OrdinalPosition, NumericPrecision, NumericScale, CharacterMaximumLength  int
 }
 
 func NewColumn(columnName, databaseType, tableName string) Column {
@@ -44,6 +44,14 @@ func (c *Column) GetTitleCaseColumnName() string {
 
 func (c *Column) GetPascalCaseColumnName() string {
 	return strcase.ToCamel(c.ColumnName)
+}
+
+func (c *Column) GetColumnNameInCase(caseToReturn string) string {
+	return getCaseValue(caseToReturn, c.ColumnName)
+}
+
+func (c *Column) GetColumnTableNameInCase(caseToReturn string) string {
+	return getCaseValue(caseToReturn, c.TableName)
 }
 
 func (c *Column) GetPascalCaseTableName() string {

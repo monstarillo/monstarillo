@@ -134,6 +134,7 @@ func GetMssqlColumns(tableName, schema, database string, fks []ForeignKey) []Col
 		column.IsForeignKey = IsColumnForeignKey(columnName, fks)
 		column.PkTableName = GetPkTableName(column.ColumnName, fks)
 		column.PkColumnName = GetPkColumnName(column.ColumnName, fks)
+		column.DatabaseType = "mssql"
 		columns = append(columns, column)
 
 	}
