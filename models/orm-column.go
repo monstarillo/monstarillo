@@ -24,9 +24,12 @@ func getCaseValue(caseToReturn, value string) string {
 		return strcase.ToLowerCamel(value)
 	case "kebab":
 		return strcase.ToKebab(value)
-
+	case "screamingKebab":
+		return strcase.ToScreamingKebab(value)
 	case "snake":
 		return strcase.ToSnake(value)
+	case "screamingSnake":
+		return strcase.ToScreamingSnake(value)
 
 	}
 	return strcase.ToCamel(value)

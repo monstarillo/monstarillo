@@ -3,6 +3,7 @@ package models
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/gertd/go-pluralize"
 	"io"
 	"os"
 )
@@ -42,4 +43,31 @@ func ReadModels(modelFile string) []OrmModel {
 	}
 
 	return models
+}
+
+func (m *OrmModel) GetPrimaryModelColumns() []OrmColumn {
+	var columns []OrmColumn
+
+	c := 0
+	for range m.Columns {
+		if m.Columns[c].IsPrimaryKey {
+			columns = append(columns, m.Columns[c])
+		}
+		c++
+	}
+
+	return columns
+}
+
+// GetModelNamePluralInCase ensures model name is pluralized in the case that is passed.
+func (m *OrmModel) GetModelNamePluralInCase(caseToReturn string) string {
+	pluralize := pluralize.NewClient()
+	if pluralize.IsPlural(m.ModelName) {
+		return getCaseValue(caseToReturn, m.ModelName)
+	}
+	return getCaseValue(caseToReturn, pluralize.Plural(m.ModelName))
+}
+
+func (m *OrmModel) HasCompositePrimaryKey() bool {
+	return len(m.GetPrimaryModelColumns()) > 1
 }
