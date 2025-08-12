@@ -1,0 +1,52 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "DB Documenter",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}",
+      "args": [
+        "postgres",
+        "--t",
+        "/home/patrick/code/monstarillo-templates/tutorial-database-documenter/templates.json",
+        "--u",
+        "postgres",
+        "--p",
+        "erer",
+        "--db",
+        "chinhook",
+        "--host",
+        "localhost",
+        "--schema",
+        "public"
+      ]
+    },
+    {
+      "name": "Java-api",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}",
+      "args": [
+        "postgres",
+        "--t",
+        "/home/patrick/code/shared-templates/java-api/postgres/templates.json",
+        "--u",
+        "postgres",
+        "--p",
+        "erer",
+        "--db",
+        "chinhook",
+        "--host",
+        "localhost",
+        "--schema",
+        "public"
+      ]
+    }
+  ]
+}
