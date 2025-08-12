@@ -5,6 +5,9 @@ package cmd
 
 import (
 	"fmt"
+	"strconv"
+
+	"github.com/fatih/color"
 	"github.com/monstarillo/monstarillo/engine"
 	"github.com/monstarillo/monstarillo/models"
 	"github.com/spf13/cobra"
@@ -31,6 +34,7 @@ database applications against a Postgres database.`,
 
 		models.ConnectPostgresDB(userName, password, database, host, port)
 		tables := models.GetPostgresTables(schema, database)
+		fmt.Println("Found " + color.BlueString(strconv.Itoa(len(tables))) + " tables")
 		engine.ProcessTables(tables, unitTestValuesJson, templateFile, gui)
 		models.CloseDB()
 	},

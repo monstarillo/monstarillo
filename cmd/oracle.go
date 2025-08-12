@@ -5,6 +5,9 @@ package cmd
 
 import (
 	"fmt"
+	"strconv"
+
+	"github.com/fatih/color"
 	"github.com/monstarillo/monstarillo/engine"
 	"github.com/monstarillo/monstarillo/models"
 	"github.com/spf13/cobra"
@@ -30,7 +33,7 @@ database applications against a Oracle database.`,
 
 		models.ConnectOracleDB(userName, password, server, service, port)
 		tables := models.GetOracleTables(schema)
-
+		fmt.Println("Found " + color.BlueString(strconv.Itoa(len(tables))) + " tables")
 		engine.ProcessTables(tables, unitTestValuesJson, templateFile, gui)
 		models.CloseDB()
 	},

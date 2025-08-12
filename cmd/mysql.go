@@ -5,10 +5,12 @@ package cmd
 
 import (
 	"fmt"
+	"strconv"
+
+	"github.com/fatih/color"
 	"github.com/monstarillo/monstarillo/engine"
 	"github.com/monstarillo/monstarillo/models"
 	"github.com/spf13/cobra"
-	"strconv"
 )
 
 // mysqlCmd represents the mysql command
@@ -33,7 +35,7 @@ database applications against a MySql database.`,
 		database := "tcp(" + host + ":" + strconv.Itoa(port) + ")/" + schema
 		models.ConnectDB(userName, password, database)
 		tables := models.GetTables(schema)
-
+		fmt.Println("Found " + color.BlueString(strconv.Itoa(len(tables))) + " tables")
 		engine.ProcessTables(tables, unitTestValuesJson, templateFile, gui)
 
 		models.CloseDB()
