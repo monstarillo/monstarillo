@@ -344,7 +344,7 @@ func processTemplates(ts models.Templates, tmpl *template.Template, ctx *Monstar
 
 			// Enforce minimum length (on the buffer we already have)
 			if t.MinimumGeneratedFileLength > 0 && len(result) <= t.MinimumGeneratedFileLength {
-				fmt.Println(templatePath, ctx.CurrentTable.TableName, len(result))
+				//fmt.Println(templatePath, ctx.CurrentTable.TableName, len(result))
 				continue
 			}
 
@@ -367,30 +367,6 @@ func processTemplates(ts models.Templates, tmpl *template.Template, ctx *Monstar
 		}
 	}
 }
-
-//func copyFile(src, dst string) {
-//	if _, err := os.Stat(dst); os.IsNotExist(err) {
-//		err = os.MkdirAll(filepath.Dir(dst), 0777)
-//		check(err) // path/to/whatever exists
-//	}
-//	fin, err := os.Open(src)
-//	if err != nil {
-//		log.Fatal(err)
-//	}
-//	defer fin.Close()
-//
-//	fout, err := os.Create(dst)
-//	if err != nil {
-//		log.Fatal(err)
-//	}
-//	defer fout.Close()
-//
-//	_, err = io.Copy(fout, fin)
-//
-//	if err != nil {
-//		log.Fatal(err)
-//	}
-//}
 
 func copyFile(src, dst string) error {
 	in, err := os.Open(src)
