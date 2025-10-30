@@ -45,10 +45,10 @@ func GetJavascriptDataTypeForOracle(dataType string, numericPrecision int) strin
 
 	switch dataType {
 	case "VARCHAR", "VARCHAR2", "LONG", "CLOB", "NCLOB", "CHAR", "CHARACTER", "NCHAR", "NVARCHAR2":
-		return "String"
+		return "string"
 
 	case "DATE", "TIMESTAMP", "TIMESTAMP WITH TZ", "TIMESTAMP WITH LOCAL TZ":
-		return "String"
+		return "string"
 
 	case "BINARY_INTEGER", "NATURAL", "NATURALN",
 		"PLS_INTEGER",
@@ -59,10 +59,10 @@ func GetJavascriptDataTypeForOracle(dataType string, numericPrecision int) strin
 		"SMALLINT",
 		"DOUBLE PRECISION", "FLOAT",
 		"NUMBER", "DEC", "DECIMAL", "NUMERIC":
-		return "Number"
+		return "number"
 
 	case "BOOLEAN":
-		return "Boolean"
+		return "boolean"
 
 	case "RAW", "LONG RAW", "BFILE", "BLOB":
 		return "string"

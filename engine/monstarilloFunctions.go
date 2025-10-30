@@ -1,14 +1,15 @@
 package engine
 
 import (
-	pluralize "github.com/gertd/go-pluralize"
-	"github.com/iancoleman/strcase"
-	"github.com/monstarillo/monstarillo/models"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
 	"text/template"
+
+	pluralize "github.com/gertd/go-pluralize"
+	"github.com/iancoleman/strcase"
+	"github.com/monstarillo/monstarillo/models"
 )
 
 var funcMap = template.FuncMap{
@@ -21,12 +22,32 @@ var funcMap = template.FuncMap{
 	"makePlural":                    makePlural,
 	"makePascalCase":                makePascalCase,
 	"makeCamelCase":                 makeCamelCase,
+	"makeKebabCase":                 makeKebabCase,
+	"makeSnakeCase":                 makeSnakeCase,
+	"makeUpperCase":                 makeUpperCase,
+	"makeLowerCase":                 makeLowerCase,
 	"GetFkTableNamePlural":          GetFkTableNamePlural,
 	"GetEditSelectKeyForColumn":     GetEditSelectKeyForColumn,
 	"GetEditSelectValueForColumn":   GetEditSelectValueForColumn,
 	"getColumnCountByDataType":      getColumnCountByDataType,
 	"GetGoParseIntConversionSuffix": GetGoParseIntConversionSuffix,
 	"GoIntCast":                     GoIntCast,
+	"FindTableByName":               FindTableByName,
+}
+
+type Tables []models.Table
+
+func FindTableByName(tables []models.Table, name string) *models.Table {
+	for _, table := range tables {
+		if table.TableName == name {
+			return &table
+		}
+	}
+	return nil
+}
+
+type Data struct {
+	Tables Tables // Use the named type instead of []Table
 }
 
 func getHomeDirectory() string {
@@ -85,6 +106,31 @@ func getTableSecondColumn(tableName string) string {
 	return ""
 }
 
+func getTableSecondColumnJavaDataType(tableName string) string {
+	tables := models.ReadTables(filepath.Join(getHomeDirectory(), "tables.json"))
+
+	pkColumn := getTableFirstPk(tableName)
+	for _, t := range tables {
+		if t.TableName == tableName {
+			cols := t.Columns
+
+			if len(cols) == 1 {
+				return cols[0].ColumnName
+			}
+
+			if len(pkColumn) == 0 {
+				return cols[1].ColumnName
+			} else if cols[0].ColumnName == pkColumn {
+				return cols[1].ColumnName
+			} else {
+				return cols[0].ColumnName
+			}
+		}
+	}
+
+	return ""
+}
+
 func getColumnCountByDataType(tableName, dataType string) int {
 	count := 0
 	table := getTable(tableName)
@@ -106,6 +152,22 @@ func makePlural(s string) string {
 
 func makeCamelCase(s string) string {
 	return strcase.ToLowerCamel(s)
+}
+
+func makeKebabCase(s string) string {
+	return strcase.ToKebab(s)
+}
+
+func makeSnakeCase(s string) string {
+	return strcase.ToSnake(s)
+}
+
+func makeUpperCase(s string) string {
+	return strings.ToUpper(s)
+}
+
+func makeLowerCase(s string) string {
+	return strings.ToLower(s)
 }
 
 func makePascalCase(s string) string {
@@ -146,10 +208,10 @@ func GetFkTableNamePlural(tableName, columnName string) string {
 	for _, fk := range t.ForeignKeys {
 		if fk.FkColumnName == columnName {
 			client := pluralize.NewClient()
-			if client.IsPlural(fk.PkTableName) {
+			if client.IsPlural(fk.FkTableName) {
 				return strcase.ToLowerCamel(t.TableName)
 			}
-			return strcase.ToLowerCamel(client.Plural(fk.PkTableName))
+			return strcase.ToLowerCamel(client.Plural(fk.FkTableName))
 		}
 	}
 

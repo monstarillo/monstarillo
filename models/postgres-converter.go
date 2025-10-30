@@ -42,34 +42,34 @@ func GetJavascriptDataTypeForPostgres(dataType string, numericPrecision int) str
 
 	switch dataType {
 	case "varchar", "char", "text", "tinytext", "bpchar", "longtext":
-		return "String"
+		return "string"
 
 	case "date", "year", "datetime":
-		return "String"
+		return "string"
 
 	case "timestamp":
-		return "String"
+		return "string"
 
 	case "time":
-		return "String"
+		return "string"
 
 	case "int", "integer", "int2", "smallint", "int4":
-		return "Number"
+		return "number"
 
 	case "bool", "boolean":
-		return "Boolean"
+		return "boolean"
 
 	case "bigint", "int8":
-		return "Number"
+		return "number"
 
 	case "decimal", "dec":
-		return "Number"
+		return "number"
 
 	case "float4", "float8":
-		return "Number"
+		return "number"
 
 	case "double":
-		return "Number"
+		return "number"
 
 	case "binary", "varbinary", "blob", "tinyblob", "bytea":
 		return "string"

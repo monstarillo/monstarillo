@@ -3,11 +3,12 @@ package engine
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
+
 	"github.com/gertd/go-pluralize"
 	"github.com/iancoleman/strcase"
 	"github.com/monstarillo/monstarillo/models"
-	"io/ioutil"
-	"os"
 )
 
 type MonstarilloContext struct {
@@ -53,7 +54,7 @@ func (m *MonstarilloContext) GetFkTableName(tableName, columnName string) string
 		if t.TableName == tableName {
 			for _, fk := range t.ForeignKeys {
 				if fk.FkColumnName == columnName {
-					return fk.PkTableName
+					return fk.FkTableName
 				}
 			}
 		}

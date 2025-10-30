@@ -46,32 +46,32 @@ func GetJavascriptDataTypeForMySql(dataType string, numericPrecision int) string
 
 	switch dataType {
 	case "varchar", "char", "text", "tinytext", "mediumtext", "longtext":
-		return "String"
+		return "string"
 
 	case "date", "year", "datetime":
-		return "String"
+		return "string"
 
 	case "set", "enum", "geometry":
-		return "String"
+		return "string"
 
 	case "timestamp", "time":
-		return "String"
+		return "string"
 
 	case "bit":
 		if numericPrecision == 1 {
-			return "Boolean"
+			return "boolean"
 		} else {
-			return "Number"
+			return "number"
 		}
 
 	case "int", "integer", "tinyint", "smallint", "mediumint", "bigint", "decimal", "dec", "float", "double":
-		return "Number"
+		return "number"
 
 	case "bool", "boolean":
-		return "Boolean"
+		return "boolean"
 
 	case "binary", "varbinary", "blob", "tinyblob", "mediumblob":
-		return "String"
+		return "string"
 
 	default:
 		return "Unknown" + "_" + dataType

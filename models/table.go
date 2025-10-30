@@ -3,10 +3,11 @@ package models
 import (
 	"encoding/json"
 	"fmt"
-	pluralize "github.com/gertd/go-pluralize"
 	"io/ioutil"
 	"os"
 	"strings"
+
+	pluralize "github.com/gertd/go-pluralize"
 
 	"github.com/iancoleman/strcase"
 )
@@ -48,6 +49,86 @@ func (t *Table) GetPrimaryColumns() []Column {
 	return columns
 }
 
+// GetNonPrimaryColumns returns a slice of Column objects that are marked as primary keys from the table's columns.
+func (t *Table) GetNonPrimaryColumns() []Column {
+	var columns []Column
+
+	c := 0
+	for range t.Columns {
+		if !t.Columns[c].IsPrimaryKey {
+			columns = append(columns, t.Columns[c])
+		}
+		c++
+	}
+
+	return columns
+}
+
+// GetFirstNonPrimaryColumns returns the first column that is not a primary key
+func (t *Table) GetFirstNonPrimaryColumn() Column {
+
+	c := 0
+	for range t.Columns {
+		if !t.Columns[c].IsPrimaryKey {
+			return t.Columns[c]
+		}
+		c++
+	}
+	var column Column
+	return column
+}
+
+func (t *Table) GetFirstNonPrimaryColumnJavaDataType() string {
+
+	c := 0
+	for range t.Columns {
+		if !t.Columns[c].IsPrimaryKey {
+			return t.Columns[c].GetJavaDataType()
+		}
+		c++
+	}
+
+	return ""
+}
+
+func (t *Table) GetFirstNonPrimaryColumnJavascriptDataType() string {
+
+	c := 0
+	for range t.Columns {
+		if !t.Columns[c].IsPrimaryKey {
+			return t.Columns[c].GetJavascriptDataType()
+		}
+		c++
+	}
+
+	return ""
+}
+
+func (t *Table) GetFirstNonPrimaryColumnGoDataType() string {
+
+	c := 0
+	for range t.Columns {
+		if !t.Columns[c].IsPrimaryKey {
+			return t.Columns[c].GetGoDataType()
+		}
+		c++
+	}
+
+	return ""
+}
+
+func (t *Table) GetFirstNonPrimaryColumnCSharpDataType() string {
+
+	c := 0
+	for range t.Columns {
+		if !t.Columns[c].IsPrimaryKey {
+			return t.Columns[c].GetCSharpDataType()
+		}
+		c++
+	}
+
+	return ""
+}
 func (t *Table) GetTableNameInCase(caseToReturn string) string {
 	return getCaseValue(caseToReturn, t.TableName)
 }
@@ -113,15 +194,15 @@ func (t *Table) GetPrimaryColumnVariables() string {
 }
 
 // GetFirstPrimaryColumn returns the first column marked as a primary key within the table. Returns an empty Column if none found.
-func (t *Table) GetFirstPrimaryColumn() Column {
+func (t *Table) GetFirstPrimaryColumn() *Column {
 	c := 0
 	for range t.Columns {
 		if t.Columns[c].IsPrimaryKey {
-			return t.Columns[c]
+			return &t.Columns[c]
 		}
 		c++
 	}
-	return Column{}
+	return nil
 }
 
 // GetFirstPrimaryColumnJavaDataType returns the Java data type of the first primary key column in the table. If none, returns empty string.
@@ -421,6 +502,18 @@ func (t *Table) GetJavaFirstPrimaryUnitTestValue() string {
 		}
 		c++
 	}
+	return ""
+}
+
+func (t *Table) GetJavaFirstPrimaryColumnName() string {
+	c := 0
+	for range t.Columns {
+		if t.Columns[c].IsPrimaryKey {
+			return t.Columns[c].ColumnName
+		}
+		c++
+	}
+
 	return ""
 }
 
