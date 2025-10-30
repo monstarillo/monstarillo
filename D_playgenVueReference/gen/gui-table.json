@@ -1,0 +1,496 @@
+
+  "tables":[
+  {
+    "tableName": "Artist",
+    "allowAttachedFiles": false,
+    "foreignKeyDisplays": [],
+    "searchConfig": {
+      "isSearchable": true,
+      "searchField": "Name",
+      "searchEndpoint": "/search"
+    },
+    "serviceConfig": {
+      "useJoinedQueries": false,
+      "enableSearch": true
+    },
+    "list": {
+    "firstColumn" : {"columnName": "ArtistId", "title": "ArtistId", "value": "artistId", "guiControl": "BaseInput"},
+    "columns": [   
+       {"columnName": "Name", "title": "Name", "value": "name", "guiControl": "BaseInput"}
+      
+    ]},
+    "edit": {
+      "columns": [  { "columnName": "ArtistId",  "title": "ArtistId", "value": "artistId", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Name",  "title": "Name", "value": "name", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        
+    ]}
+  }
+  ,{
+    "tableName": "Employee",
+    "allowAttachedFiles": false,
+    "foreignKeyDisplays": [{
+      "foreignKeyColumn": "EmployeeId",
+      "referencedTable": "Employee", 
+      "displayField": "LastName",
+      "dtoFieldName": "employeeLastName",
+      "showInList": true,
+      "showInDetail": true
+    }],
+    "searchConfig": {
+      "isSearchable": true,
+      "searchField": "LastName",
+      "searchEndpoint": "/search"
+    },
+    "serviceConfig": {
+      "useJoinedQueries": true,
+      "enableSearch": true
+    },
+    "list": {
+    "firstColumn" : {"columnName": "EmployeeId", "title": "EmployeeId", "value": "employeeId", "guiControl": "BaseInput"},
+    "columns": [   
+       {"columnName": "LastName", "title": "LastName", "value": "lastName", "guiControl": "BaseInput"}
+      ,{"columnName": "FirstName", "title": "FirstName", "value": "firstName", "guiControl": "BaseInput"}
+      ,{"columnName": "Title", "title": "Title", "value": "title", "guiControl": "BaseInput"}
+      ,{"columnName": "ReportsTo", "title": "ReportsTo", "value": "reportsTo", "guiControl": "BaseInput"}
+      ,{"columnName": "BirthDate", "title": "BirthDate", "value": "birthDate", "guiControl": "BaseInput"}
+      ,{"columnName": "HireDate", "title": "HireDate", "value": "hireDate", "guiControl": "BaseInput"}
+      ,{"columnName": "Address", "title": "Address", "value": "address", "guiControl": "BaseInput"}
+      ,{"columnName": "City", "title": "City", "value": "city", "guiControl": "BaseInput"}
+      ,{"columnName": "State", "title": "State", "value": "state", "guiControl": "BaseInput"}
+      ,{"columnName": "Country", "title": "Country", "value": "country", "guiControl": "BaseInput"}
+      ,{"columnName": "PostalCode", "title": "PostalCode", "value": "postalCode", "guiControl": "BaseInput"}
+      ,{"columnName": "Phone", "title": "Phone", "value": "phone", "guiControl": "BaseInput"}
+      ,{"columnName": "Fax", "title": "Fax", "value": "fax", "guiControl": "BaseInput"}
+      ,{"columnName": "Email", "title": "Email", "value": "email", "guiControl": "BaseInput"}
+      ,{"columnName": "employeeLastName", "title": "Employee LastName", "value": "employeeLastName", "guiControl": "BaseInput", "isForeignKeyDisplay": true}
+    ]},
+    "edit": {
+      "columns": [  { "columnName": "EmployeeId",  "title": "EmployeeId", "value": "employeeId", "guiControl": "BaseSelect",
+              "selectOptions":" employeeId_employees", "selectValue": "lastName", "selectKey" : "employeeId", "selectTableName" : "Employee"}
+        ,{ "columnName": "LastName",  "title": "LastName", "value": "lastName", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "FirstName",  "title": "FirstName", "value": "firstName", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Title",  "title": "Title", "value": "title", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "ReportsTo",  "title": "ReportsTo", "value": "reportsTo", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "BirthDate",  "title": "BirthDate", "value": "birthDate", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "HireDate",  "title": "HireDate", "value": "hireDate", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Address",  "title": "Address", "value": "address", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "City",  "title": "City", "value": "city", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "State",  "title": "State", "value": "state", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Country",  "title": "Country", "value": "country", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "PostalCode",  "title": "PostalCode", "value": "postalCode", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Phone",  "title": "Phone", "value": "phone", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Fax",  "title": "Fax", "value": "fax", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Email",  "title": "Email", "value": "email", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        
+    ]}
+  }
+  ,{
+    "tableName": "Customer",
+    "allowAttachedFiles": false,
+    "foreignKeyDisplays": [{
+      "foreignKeyColumn": "EmployeeId",
+      "referencedTable": "Customer", 
+      "displayField": "FirstName",
+      "dtoFieldName": "customerFirstName",
+      "showInList": true,
+      "showInDetail": true
+    }],
+    "searchConfig": {
+      "isSearchable": true,
+      "searchField": "FirstName",
+      "searchEndpoint": "/search"
+    },
+    "serviceConfig": {
+      "useJoinedQueries": true,
+      "enableSearch": true
+    },
+    "list": {
+    "firstColumn" : {"columnName": "CustomerId", "title": "CustomerId", "value": "customerId", "guiControl": "BaseInput"},
+    "columns": [   
+       {"columnName": "FirstName", "title": "FirstName", "value": "firstName", "guiControl": "BaseInput"}
+      ,{"columnName": "LastName", "title": "LastName", "value": "lastName", "guiControl": "BaseInput"}
+      ,{"columnName": "Company", "title": "Company", "value": "company", "guiControl": "BaseInput"}
+      ,{"columnName": "Address", "title": "Address", "value": "address", "guiControl": "BaseInput"}
+      ,{"columnName": "City", "title": "City", "value": "city", "guiControl": "BaseInput"}
+      ,{"columnName": "State", "title": "State", "value": "state", "guiControl": "BaseInput"}
+      ,{"columnName": "Country", "title": "Country", "value": "country", "guiControl": "BaseInput"}
+      ,{"columnName": "PostalCode", "title": "PostalCode", "value": "postalCode", "guiControl": "BaseInput"}
+      ,{"columnName": "Phone", "title": "Phone", "value": "phone", "guiControl": "BaseInput"}
+      ,{"columnName": "Fax", "title": "Fax", "value": "fax", "guiControl": "BaseInput"}
+      ,{"columnName": "Email", "title": "Email", "value": "email", "guiControl": "BaseInput"}
+      ,{"columnName": "SupportRepId", "title": "SupportRepId", "value": "supportRepId", "guiControl": "BaseInput"}
+      ,{"columnName": "customerFirstName", "title": "Customer FirstName", "value": "customerFirstName", "guiControl": "BaseInput", "isForeignKeyDisplay": true}
+    ]},
+    "edit": {
+      "columns": [  { "columnName": "CustomerId",  "title": "CustomerId", "value": "customerId", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "FirstName",  "title": "FirstName", "value": "firstName", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "LastName",  "title": "LastName", "value": "lastName", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Company",  "title": "Company", "value": "company", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Address",  "title": "Address", "value": "address", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "City",  "title": "City", "value": "city", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "State",  "title": "State", "value": "state", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Country",  "title": "Country", "value": "country", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "PostalCode",  "title": "PostalCode", "value": "postalCode", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Phone",  "title": "Phone", "value": "phone", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Fax",  "title": "Fax", "value": "fax", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Email",  "title": "Email", "value": "email", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "SupportRepId",  "title": "SupportRepId", "value": "supportRepId", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        
+    ]}
+  }
+  ,{
+    "tableName": "Invoice",
+    "allowAttachedFiles": false,
+    "foreignKeyDisplays": [{
+      "foreignKeyColumn": "CustomerId",
+      "referencedTable": "Invoice", 
+      "displayField": "CustomerId",
+      "dtoFieldName": "invoiceCustomerId",
+      "showInList": true,
+      "showInDetail": true
+    }],
+    "searchConfig": {
+      "isSearchable": true,
+      "searchField": "CustomerId",
+      "searchEndpoint": "/search"
+    },
+    "serviceConfig": {
+      "useJoinedQueries": true,
+      "enableSearch": true
+    },
+    "list": {
+    "firstColumn" : {"columnName": "InvoiceId", "title": "InvoiceId", "value": "invoiceId", "guiControl": "BaseInput"},
+    "columns": [   
+       {"columnName": "CustomerId", "title": "CustomerId", "value": "invoiceCustomerId", "guiControl": "BaseInput"}
+      ,{"columnName": "InvoiceDate", "title": "InvoiceDate", "value": "invoiceDate", "guiControl": "BaseInput"}
+      ,{"columnName": "BillingAddress", "title": "BillingAddress", "value": "billingAddress", "guiControl": "BaseInput"}
+      ,{"columnName": "BillingCity", "title": "BillingCity", "value": "billingCity", "guiControl": "BaseInput"}
+      ,{"columnName": "BillingState", "title": "BillingState", "value": "billingState", "guiControl": "BaseInput"}
+      ,{"columnName": "BillingCountry", "title": "BillingCountry", "value": "billingCountry", "guiControl": "BaseInput"}
+      ,{"columnName": "BillingPostalCode", "title": "BillingPostalCode", "value": "billingPostalCode", "guiControl": "BaseInput"}
+      ,{"columnName": "Total", "title": "Total", "value": "total", "guiControl": "BaseInput"}
+      ,{"columnName": "invoiceCustomerId", "title": "Invoice CustomerId", "value": "invoiceCustomerId", "guiControl": "BaseInput", "isForeignKeyDisplay": true}
+    ]},
+    "edit": {
+      "columns": [  { "columnName": "InvoiceId",  "title": "InvoiceId", "value": "invoiceId", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "CustomerId",  "title": "CustomerId", "value": "customerId", "guiControl": "BaseSelect",
+              "selectOptions":" customerId_invoices", "selectValue": "customerId", "selectKey" : "invoiceId", "selectTableName" : "Invoice"}
+        ,{ "columnName": "InvoiceDate",  "title": "InvoiceDate", "value": "invoiceDate", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "BillingAddress",  "title": "BillingAddress", "value": "billingAddress", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "BillingCity",  "title": "BillingCity", "value": "billingCity", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "BillingState",  "title": "BillingState", "value": "billingState", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "BillingCountry",  "title": "BillingCountry", "value": "billingCountry", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "BillingPostalCode",  "title": "BillingPostalCode", "value": "billingPostalCode", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Total",  "title": "Total", "value": "total", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        
+    ]}
+  }
+  ,{
+    "tableName": "InvoiceLine",
+    "allowAttachedFiles": false,
+    "foreignKeyDisplays": [{
+      "foreignKeyColumn": "InvoiceId",
+      "referencedTable": "InvoiceLine", 
+      "displayField": "InvoiceId",
+      "dtoFieldName": "invoiceLineInvoiceId",
+      "showInList": true,
+      "showInDetail": true
+    },{
+      "foreignKeyColumn": "TrackId",
+      "referencedTable": "InvoiceLine", 
+      "displayField": "InvoiceId",
+      "dtoFieldName": "invoiceLineInvoiceId",
+      "showInList": true,
+      "showInDetail": true
+    }],
+    "searchConfig": null,
+    "serviceConfig": {
+      "useJoinedQueries": true,
+      "enableSearch": false
+    },
+    "list": {
+    "firstColumn" : {"columnName": "InvoiceLineId", "title": "InvoiceLineId", "value": "invoiceLineId", "guiControl": "BaseInput"},
+    "columns": [   
+       {"columnName": "InvoiceId", "title": "InvoiceId", "value": "invoiceLineInvoiceId", "guiControl": "BaseInput"}
+      ,{"columnName": "TrackId", "title": "TrackId", "value": "invoiceLineInvoiceId", "guiControl": "BaseInput"}
+      ,{"columnName": "UnitPrice", "title": "UnitPrice", "value": "unitPrice", "guiControl": "BaseInput"}
+      ,{"columnName": "Quantity", "title": "Quantity", "value": "quantity", "guiControl": "BaseInput"}
+      ,{"columnName": "invoiceLineInvoiceId", "title": "InvoiceLine InvoiceId", "value": "invoiceLineInvoiceId", "guiControl": "BaseInput", "isForeignKeyDisplay": true},{"columnName": "invoiceLineInvoiceId", "title": "InvoiceLine InvoiceId", "value": "invoiceLineInvoiceId", "guiControl": "BaseInput", "isForeignKeyDisplay": true}
+    ]},
+    "edit": {
+      "columns": [  { "columnName": "InvoiceLineId",  "title": "InvoiceLineId", "value": "invoiceLineId", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "InvoiceId",  "title": "InvoiceId", "value": "invoiceId", "guiControl": "BaseSelect",
+              "selectOptions":" invoiceId_invoiceLines", "selectValue": "invoiceId", "selectKey" : "invoiceLineId", "selectTableName" : "InvoiceLine"}
+        ,{ "columnName": "TrackId",  "title": "TrackId", "value": "trackId", "guiControl": "BaseSelect",
+              "selectOptions":" trackId_invoiceLines", "selectValue": "invoiceId", "selectKey" : "invoiceLineId", "selectTableName" : "InvoiceLine"}
+        ,{ "columnName": "UnitPrice",  "title": "UnitPrice", "value": "unitPrice", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Quantity",  "title": "Quantity", "value": "quantity", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        
+    ]}
+  }
+  ,{
+    "tableName": "Track",
+    "allowAttachedFiles": false,
+    "foreignKeyDisplays": [{
+      "foreignKeyColumn": "AlbumId",
+      "referencedTable": "Track", 
+      "displayField": "Name",
+      "dtoFieldName": "trackName",
+      "showInList": true,
+      "showInDetail": true
+    },{
+      "foreignKeyColumn": "GenreId",
+      "referencedTable": "Track", 
+      "displayField": "Name",
+      "dtoFieldName": "trackName",
+      "showInList": true,
+      "showInDetail": true
+    },{
+      "foreignKeyColumn": "MediaTypeId",
+      "referencedTable": "Track", 
+      "displayField": "Name",
+      "dtoFieldName": "trackName",
+      "showInList": true,
+      "showInDetail": true
+    }],
+    "searchConfig": {
+      "isSearchable": true,
+      "searchField": "Name",
+      "searchEndpoint": "/search"
+    },
+    "serviceConfig": {
+      "useJoinedQueries": true,
+      "enableSearch": true
+    },
+    "list": {
+    "firstColumn" : {"columnName": "TrackId", "title": "TrackId", "value": "trackId", "guiControl": "BaseInput"},
+    "columns": [   
+       {"columnName": "Name", "title": "Name", "value": "name", "guiControl": "BaseInput"}
+      ,{"columnName": "AlbumId", "title": "AlbumId", "value": "trackName", "guiControl": "BaseInput"}
+      ,{"columnName": "MediaTypeId", "title": "MediaTypeId", "value": "trackName", "guiControl": "BaseInput"}
+      ,{"columnName": "GenreId", "title": "GenreId", "value": "trackName", "guiControl": "BaseInput"}
+      ,{"columnName": "Composer", "title": "Composer", "value": "composer", "guiControl": "BaseInput"}
+      ,{"columnName": "Milliseconds", "title": "Milliseconds", "value": "milliseconds", "guiControl": "BaseInput"}
+      ,{"columnName": "Bytes", "title": "Bytes", "value": "bytes", "guiControl": "BaseInput"}
+      ,{"columnName": "UnitPrice", "title": "UnitPrice", "value": "unitPrice", "guiControl": "BaseInput"}
+      ,{"columnName": "trackName", "title": "Track Name", "value": "trackName", "guiControl": "BaseInput", "isForeignKeyDisplay": true},{"columnName": "trackName", "title": "Track Name", "value": "trackName", "guiControl": "BaseInput", "isForeignKeyDisplay": true},{"columnName": "trackName", "title": "Track Name", "value": "trackName", "guiControl": "BaseInput", "isForeignKeyDisplay": true}
+    ]},
+    "edit": {
+      "columns": [  { "columnName": "TrackId",  "title": "TrackId", "value": "trackId", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Name",  "title": "Name", "value": "name", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "AlbumId",  "title": "AlbumId", "value": "albumId", "guiControl": "BaseSelect",
+              "selectOptions":" albumId_tracks", "selectValue": "name", "selectKey" : "trackId", "selectTableName" : "Track"}
+        ,{ "columnName": "MediaTypeId",  "title": "MediaTypeId", "value": "mediaTypeId", "guiControl": "BaseSelect",
+              "selectOptions":" mediaTypeId_tracks", "selectValue": "name", "selectKey" : "trackId", "selectTableName" : "Track"}
+        ,{ "columnName": "GenreId",  "title": "GenreId", "value": "genreId", "guiControl": "BaseSelect",
+              "selectOptions":" genreId_tracks", "selectValue": "name", "selectKey" : "trackId", "selectTableName" : "Track"}
+        ,{ "columnName": "Composer",  "title": "Composer", "value": "composer", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Milliseconds",  "title": "Milliseconds", "value": "milliseconds", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Bytes",  "title": "Bytes", "value": "bytes", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "UnitPrice",  "title": "UnitPrice", "value": "unitPrice", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        
+    ]}
+  }
+  ,{
+    "tableName": "Playlist",
+    "allowAttachedFiles": false,
+    "foreignKeyDisplays": [],
+    "searchConfig": {
+      "isSearchable": true,
+      "searchField": "Name",
+      "searchEndpoint": "/search"
+    },
+    "serviceConfig": {
+      "useJoinedQueries": false,
+      "enableSearch": true
+    },
+    "list": {
+    "firstColumn" : {"columnName": "PlaylistId", "title": "PlaylistId", "value": "playlistId", "guiControl": "BaseInput"},
+    "columns": [   
+       {"columnName": "Name", "title": "Name", "value": "name", "guiControl": "BaseInput"}
+      
+    ]},
+    "edit": {
+      "columns": [  { "columnName": "PlaylistId",  "title": "PlaylistId", "value": "playlistId", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Name",  "title": "Name", "value": "name", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        
+    ]}
+  }
+  ,{
+    "tableName": "PlaylistTrack",
+    "allowAttachedFiles": false,
+    "foreignKeyDisplays": [{
+      "foreignKeyColumn": "PlaylistId",
+      "referencedTable": "PlaylistTrack", 
+      "displayField": "TrackId",
+      "dtoFieldName": "playlistTrackTrackId",
+      "showInList": true,
+      "showInDetail": true
+    },{
+      "foreignKeyColumn": "TrackId",
+      "referencedTable": "PlaylistTrack", 
+      "displayField": "TrackId",
+      "dtoFieldName": "playlistTrackTrackId",
+      "showInList": true,
+      "showInDetail": true
+    }],
+    "searchConfig": null,
+    "serviceConfig": {
+      "useJoinedQueries": true,
+      "enableSearch": false
+    },
+    "list": {
+    "firstColumn" : {"columnName": "PlaylistId", "title": "PlaylistId", "value": "playlistId", "guiControl": "BaseInput"},
+    "columns": [   
+       {"columnName": "TrackId", "title": "TrackId", "value": "playlistTrackTrackId", "guiControl": "BaseInput"}
+      ,{"columnName": "playlistTrackTrackId", "title": "PlaylistTrack TrackId", "value": "playlistTrackTrackId", "guiControl": "BaseInput", "isForeignKeyDisplay": true},{"columnName": "playlistTrackTrackId", "title": "PlaylistTrack TrackId", "value": "playlistTrackTrackId", "guiControl": "BaseInput", "isForeignKeyDisplay": true}
+    ]},
+    "edit": {
+      "columns": [  { "columnName": "PlaylistId",  "title": "PlaylistId", "value": "playlistId", "guiControl": "BaseSelect",
+              "selectOptions":" playlistId_playlistTracks", "selectValue": "trackId", "selectKey" : "playlistId", "selectTableName" : "PlaylistTrack"}
+        ,{ "columnName": "TrackId",  "title": "TrackId", "value": "trackId", "guiControl": "BaseSelect",
+              "selectOptions":" trackId_playlistTracks", "selectValue": "trackId", "selectKey" : "playlistId", "selectTableName" : "PlaylistTrack"}
+        
+    ]}
+  }
+  ,{
+    "tableName": "Genre",
+    "allowAttachedFiles": false,
+    "foreignKeyDisplays": [],
+    "searchConfig": {
+      "isSearchable": true,
+      "searchField": "Name",
+      "searchEndpoint": "/search"
+    },
+    "serviceConfig": {
+      "useJoinedQueries": false,
+      "enableSearch": true
+    },
+    "list": {
+    "firstColumn" : {"columnName": "GenreId", "title": "GenreId", "value": "genreId", "guiControl": "BaseInput"},
+    "columns": [   
+       {"columnName": "Name", "title": "Name", "value": "name", "guiControl": "BaseInput"}
+      
+    ]},
+    "edit": {
+      "columns": [  { "columnName": "GenreId",  "title": "GenreId", "value": "genreId", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Name",  "title": "Name", "value": "name", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        
+    ]}
+  }
+  ,{
+    "tableName": "MediaType",
+    "allowAttachedFiles": false,
+    "foreignKeyDisplays": [],
+    "searchConfig": {
+      "isSearchable": true,
+      "searchField": "Name",
+      "searchEndpoint": "/search"
+    },
+    "serviceConfig": {
+      "useJoinedQueries": false,
+      "enableSearch": true
+    },
+    "list": {
+    "firstColumn" : {"columnName": "MediaTypeId", "title": "MediaTypeId", "value": "mediaTypeId", "guiControl": "BaseInput"},
+    "columns": [   
+       {"columnName": "Name", "title": "Name", "value": "name", "guiControl": "BaseInput"}
+      
+    ]},
+    "edit": {
+      "columns": [  { "columnName": "MediaTypeId",  "title": "MediaTypeId", "value": "mediaTypeId", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Name",  "title": "Name", "value": "name", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        
+    ]}
+  }
+  ,{
+    "tableName": "Album",
+    "allowAttachedFiles": false,
+    "foreignKeyDisplays": [{
+      "foreignKeyColumn": "ArtistId",
+      "referencedTable": "Album", 
+      "displayField": "Title",
+      "dtoFieldName": "albumTitle",
+      "showInList": true,
+      "showInDetail": true
+    }],
+    "searchConfig": {
+      "isSearchable": true,
+      "searchField": "Title",
+      "searchEndpoint": "/search"
+    },
+    "serviceConfig": {
+      "useJoinedQueries": true,
+      "enableSearch": true
+    },
+    "list": {
+    "firstColumn" : {"columnName": "AlbumId", "title": "AlbumId", "value": "albumId", "guiControl": "BaseInput"},
+    "columns": [   
+       {"columnName": "Title", "title": "Title", "value": "title", "guiControl": "BaseInput"}
+      ,{"columnName": "ArtistId", "title": "ArtistId", "value": "albumTitle", "guiControl": "BaseInput"}
+      ,{"columnName": "albumTitle", "title": "Album Title", "value": "albumTitle", "guiControl": "BaseInput", "isForeignKeyDisplay": true}
+    ]},
+    "edit": {
+      "columns": [  { "columnName": "AlbumId",  "title": "AlbumId", "value": "albumId", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "Title",  "title": "Title", "value": "title", "guiControl": "BaseInput",
+              "selectOptions":"", "selectValue": "", "selectKey" : "", "selectTableName" : ""}
+        ,{ "columnName": "ArtistId",  "title": "ArtistId", "value": "artistId", "guiControl": "BaseSelect",
+              "selectOptions":" artistId_albums", "selectValue": "title", "selectKey" : "albumId", "selectTableName" : "Album"}
+        
+    ]}
+  }
+  ]
+}
