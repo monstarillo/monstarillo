@@ -14,7 +14,7 @@ func getColumn(tableName, columnName string) (Column, error) {
 	}
 
 	var column Column
-	return column, errors.New("Column not found")
+	return column, errors.New("column not found")
 }
 func TestColumn_GetPascalCaseTableName(t *testing.T) {
 

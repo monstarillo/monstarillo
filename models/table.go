@@ -470,6 +470,11 @@ func (t *Table) GetPascalCaseTableName() string {
 	return strcase.ToCamel(t.TableName)
 }
 
+// GetTitleCaseTableName returns the table name as words in title case, e.g. "PlaylistTrack" -> "Playlist Track".
+func (t *Table) GetTitleCaseTableName() string {
+	return MakeTitle(strcase.ToCamel(t.TableName))
+}
+
 // GetTableName returns the name of the table associated with the Table instance.
 func (t *Table) GetTableName() string {
 	return t.TableName

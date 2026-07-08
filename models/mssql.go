@@ -9,9 +9,9 @@ import (
 	"log"
 )
 
-func ConnectMsSqlServerDB(user, password, database string, port string) {
+func ConnectMsSqlServerDB(user, password, database, host string, port string) {
 
-	connectionString := fmt.Sprintf("user id=%s;password=%s;port=%s;database=%s", user, password, port, database)
+	connectionString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%s;database=%s", host, user, password, port, database)
 
 	db, connectionError := sql.Open("mssql", connectionString)
 	if connectionError != nil {
@@ -67,15 +67,18 @@ func GetTableNamesMssql(database string, schema string) []string {
 	return tables
 }
 
+// GetMssqlForeignKeys returns the foreign keys OWNED by tableName.
+// Canonical orientation: Fk* = the owning (foreign-key) side (sys parent_*),
+// Pk* = the referenced (primary-key) side (sys referenced_*).
 func GetMssqlForeignKeys(tableName string, primaryKeys []string, identityColumns []string) []ForeignKey {
 	var fks []ForeignKey
 
 	sqlStatement := "SELECT " +
 		"f.name AS constraint_name " +
-		", OBJECT_NAME(f.parent_object_id) AS table_name " +
-		", COL_NAME(fc.parent_object_id, fc.parent_column_id) AS column_name " +
-		", OBJECT_NAME(f.referenced_object_id) AS referenced_table " +
-		", COL_NAME(fc.referenced_object_id, fc.referenced_column_id) AS referenced_column_name " +
+		", OBJECT_NAME(f.parent_object_id) AS fk_table_name " +
+		", COL_NAME(fc.parent_object_id, fc.parent_column_id) AS fk_column_name " +
+		", OBJECT_NAME(f.referenced_object_id) AS pk_table_name " +
+		", COL_NAME(fc.referenced_object_id, fc.referenced_column_id) AS pk_column_name " +
 		"FROM sys.foreign_keys AS f " +
 		"INNER JOIN sys.foreign_key_columns AS fc " +
 		"ON f.object_id = fc.constraint_object_id " +
@@ -194,15 +197,19 @@ func GetColumnMssql(columnName, tableName string, primaryKeys []string, identity
 
 	return column
 }
+
+// GetMssqlReferencedForeignKeys returns the foreign keys in OTHER tables that
+// REFERENCE tableName. Same canonical orientation as GetMssqlForeignKeys:
+// Fk* = the owning (foreign-key) side, Pk* = the referenced side (tableName).
 func GetMssqlReferencedForeignKeys(tableName string, primaryKeys []string, identityColumns []string) []ForeignKey {
 	var fks []ForeignKey
 
 	sqlStatement := "SELECT " +
 		"f.name AS constraint_name " +
-		", OBJECT_NAME(f.parent_object_id) AS referenced_table " +
-		", COL_NAME(fc.parent_object_id, fc.parent_column_id) AS referenced_column_name " +
-		", OBJECT_NAME(f.referenced_object_id) AS table_name " +
-		", COL_NAME(fc.referenced_object_id, fc.referenced_column_id) AS column_name " +
+		", OBJECT_NAME(f.parent_object_id) AS fk_table_name " +
+		", COL_NAME(fc.parent_object_id, fc.parent_column_id) AS fk_column_name " +
+		", OBJECT_NAME(f.referenced_object_id) AS pk_table_name " +
+		", COL_NAME(fc.referenced_object_id, fc.referenced_column_id) AS pk_column_name " +
 		"FROM sys.foreign_keys AS f " +
 		"INNER JOIN sys.foreign_key_columns AS fc " +
 		"ON f.object_id = fc.constraint_object_id " +

@@ -1,46 +1,57 @@
 /*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
+Copyright © 2022 Patrick Wright
 */
 package cmd
 
 import (
 	"fmt"
+	"strconv"
+
+	"github.com/fatih/color"
+	"github.com/monstarillo/monstarillo/engine"
 	"github.com/monstarillo/monstarillo/models"
 	"github.com/spf13/cobra"
 )
 
-// jsonCmd represents the json command
+// mssqlCmd represents the mssql command
 var mssqlCmd = &cobra.Command{
 	Use:   "mssql",
-	Short: "Execute templates against a Microsoft SQL Server",
-	Long:  `Execute templates against a Microsoft SQL Server`,
+	Short: "Generate code against a Microsoft SQL Server database.",
+	Long: `Mssql is a CLI library for Go that allows users to generate code for
+database applications against a Microsoft SQL Server database.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("mssql is in the building")
+		unitTestValuesJson, _ := cmd.Flags().GetString("utv")
 
-		//templateFile, _ := cmd.Flags().GetString("t")
+		templateFile, _ := cmd.Flags().GetString("t")
+		database, _ := cmd.Flags().GetString("db")
+		schema, _ := cmd.Flags().GetString("schema")
+		gui, _ := cmd.Flags().GetString("gui")
+		password, _ := cmd.Flags().GetString("p")
+		userName, _ := cmd.Flags().GetString("u")
+		port, _ := cmd.Flags().GetInt("port")
+		host, _ := cmd.Flags().GetString("host")
 
-		//engine.ProcessJson(templateFile)
-		models.ConnectMsSqlServerDB("sa", "12345678abcABC1!", "northwind", "1433")
-		tables := models.GetMssqlTables("dbo", "northwind")
-
-		a := 0
-		for range tables {
-			fmt.Println(tables[a].TableName)
-			a++
-		}
+		models.ConnectMsSqlServerDB(userName, password, database, host, strconv.Itoa(port))
+		tables := models.GetMssqlTables(schema, database)
+		fmt.Println("Found " + color.BlueString(strconv.Itoa(len(tables))) + " tables")
+		engine.ProcessTables(tables, unitTestValuesJson, templateFile, gui)
+		models.CloseDB()
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(mssqlCmd)
-	//jsonCmd.PersistentFlags().String("t", "", "Templates to run")
-	// Here you will define your flags and configuration settings.
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// jsonCmd.PersistentFlags().String("foo", "", "A help for foo")
+	mssqlCmd.PersistentFlags().String("utv", "", "Unit Test Values file")
+	mssqlCmd.PersistentFlags().String("t", "", "Templates to run")
+	mssqlCmd.PersistentFlags().String("u", "", "DB user name")
+	mssqlCmd.PersistentFlags().String("p", "", "DB password")
+	mssqlCmd.PersistentFlags().String("db", "", "Database name")
+	mssqlCmd.PersistentFlags().String("schema", "dbo", "Database schema name")
+	mssqlCmd.PersistentFlags().String("gui", "", "GUI Tables file")
+	mssqlCmd.PersistentFlags().Int("port", 1433, "Database port")
+	mssqlCmd.PersistentFlags().String("host", "localhost", "Database host")
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// jsonCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	mssqlCmd.MarkPersistentFlagRequired("t")
 }

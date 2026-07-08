@@ -17,7 +17,7 @@ func ConnectOracleDB(user, password, server, service string, port int) {
       	(address=(protocol=tcp)(host=` + server + `)(port=` + strconv.Itoa(port) + `))
     )
     (CONNECT_DATA=
-    	(SID=` + service + `)
+    	(SERVICE_NAME=` + service + `)
         (SERVER=DEDICATED)
     )
     (SOURCE_ROUTE=yes)
@@ -179,11 +179,15 @@ func GetOraclePrimaryKeys(tableName, schema string) []OraclePrimaryKey {
 	return primaryKeys
 }
 
+// GetOracleForeignKeys returns the foreign keys OWNED by tableName.
+// Canonical orientation: Fk* = the owning (foreign-key) side (a = the R
+// constraint's own columns), Pk* = the referenced (primary-key) side
+// (c_pk/b = the constraint the R constraint points at).
 func GetOracleForeignKeys(tableName, schema string) []ForeignKey {
 	var fks []ForeignKey
 
-	sqlStatement := "SELECT a.constraint_name, a.table_name, a.column_name,  " +
-		"c_pk.table_name r_table_name, b.column_name r_column_name " +
+	sqlStatement := "SELECT a.constraint_name, a.table_name fk_table_name, a.column_name fk_column_name,  " +
+		"c_pk.table_name pk_table_name, b.column_name pk_column_name " +
 		"FROM user_cons_columns a " +
 		"JOIN user_constraints c ON a.owner = c.owner " +
 		"AND a.constraint_name = c.constraint_name " +
@@ -210,11 +214,15 @@ func GetOracleForeignKeys(tableName, schema string) []ForeignKey {
 	return fks
 }
 
+// GetOracleReferencedForeignKeys returns the foreign keys in OTHER tables
+// that REFERENCE tableName. Same canonical orientation as
+// GetOracleForeignKeys: Fk* = the owning side, Pk* = the referenced side
+// (tableName).
 func GetOracleReferencedForeignKeys(tableName, schema string) []ForeignKey {
 	var fks []ForeignKey
 
-	sqlStatement := "SELECT a.constraint_name, a.table_name r_table_name, a.column_name r_column_name,  " +
-		"c_pk.table_name , b.column_name  " +
+	sqlStatement := "SELECT a.constraint_name, a.table_name fk_table_name, a.column_name fk_column_name,  " +
+		"c_pk.table_name pk_table_name, b.column_name pk_column_name  " +
 		"FROM user_cons_columns a " +
 		"JOIN user_constraints c ON a.owner = c.owner " +
 		"AND a.constraint_name = c.constraint_name " +

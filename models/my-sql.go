@@ -83,10 +83,10 @@ func GetReferencedForeignKeys(database, tableName string) []ForeignKey {
 
 	query := "SELECT " +
 		"CONSTRAINT_NAME, " +
-		"REFERENCED_TABLE_NAME as TABLE_NAME, " +
-		"REFERENCED_COLUMN_NAME as COLUMN_NAME, " +
-		"TABLE_NAME as REFERENCED_TABLE_NAME, " +
-		"COLUMN_NAME as REFERENCED_COLUMN_NAME " +
+		"TABLE_NAME, " +
+		"COLUMN_NAME, " +
+		"REFERENCED_TABLE_NAME, " +
+		"REFERENCED_COLUMN_NAME " +
 		"FROM " +
 		"INFORMATION_SCHEMA.KEY_COLUMN_USAGE " +
 		"WHERE " +
@@ -102,14 +102,15 @@ func GetReferencedForeignKeys(database, tableName string) []ForeignKey {
 
 	for results.Next() {
 		var fk ForeignKey
-		// for each row, scan the result into our tag composite object
+		// Fk* is the owning (foreign-key) side — here, the other table that
+		// references tableName. Pk* is the referenced (primary-key) side.
 		err = results.Scan(&fk.ConstraintName, &fk.FkTableName, &fk.FkColumnName, &fk.PkTableName, &fk.PkColumnName)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		fk.PkColumn = GetColumn(database, fk.FkColumnName, fk.FkTableName)
-		fk.FkColumn = GetColumn(database, fk.PkColumnName, fk.PkTableName)
+		fk.FkColumn = GetColumn(database, fk.FkColumnName, fk.FkTableName)
+		fk.PkColumn = GetColumn(database, fk.PkColumnName, fk.PkTableName)
 		fks = append(fks, fk)
 
 	}

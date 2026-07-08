@@ -240,10 +240,10 @@ func GetPostgresForeignKeys(schema, database, tableName string, primaryKeys []st
 
 	sqlStatement := "SELECT  " +
 		"tc.constraint_name, " +
-		"ccu.table_name   AS foreign_table_name, " +
-		"ccu.column_name  AS foreign_column_name, " +
-		"tc.table_name, " +
-		"kcu.column_name " +
+		"tc.table_name    AS fk_table_name, " +
+		"kcu.column_name  AS fk_column_name, " +
+		"ccu.table_name   AS pk_table_name, " +
+		"ccu.column_name  AS pk_column_name " +
 		"FROM information_schema.table_constraints AS tc " +
 		"JOIN information_schema.key_column_usage AS kcu " +
 		"ON tc.constraint_name = kcu.constraint_name " +
@@ -265,7 +265,8 @@ func GetPostgresForeignKeys(schema, database, tableName string, primaryKeys []st
 
 	for results.Next() {
 		var fk ForeignKey
-		// for each row, scan the result into our tag composite object
+		// Fk* is the owning (foreign-key) side, Pk* is the referenced
+		// (primary-key) side — same orientation as the MySQL loader.
 		err = results.Scan(&fk.ConstraintName, &fk.FkTableName, &fk.FkColumnName, &fk.PkTableName, &fk.PkColumnName)
 		if err != nil {
 			CheckError(err)
