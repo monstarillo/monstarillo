@@ -65,7 +65,9 @@ func GetForeignKeys(database, tableName string) []ForeignKey {
 	for results.Next() {
 		var fk ForeignKey
 		// for each row, scan the result into our tag composite object
-		err = results.Scan(&fk.ConstraintName, &fk.FkTableName, &fk.FkColumnName, &fk.PkTableName, &fk.PkColumnName)
+		// Match the Postgres convention used by the shared templates:
+		// Fk* = the referenced (parent) table, Pk* = this (child) table.
+		err = results.Scan(&fk.ConstraintName, &fk.PkTableName, &fk.PkColumnName, &fk.FkTableName, &fk.FkColumnName)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -103,13 +105,15 @@ func GetReferencedForeignKeys(database, tableName string) []ForeignKey {
 	for results.Next() {
 		var fk ForeignKey
 		// for each row, scan the result into our tag composite object
-		err = results.Scan(&fk.ConstraintName, &fk.FkTableName, &fk.FkColumnName, &fk.PkTableName, &fk.PkColumnName)
+		// Match the Postgres convention used by the shared templates:
+		// Fk* = the referencing (child) table, Pk* = this (parent) table.
+		err = results.Scan(&fk.ConstraintName, &fk.PkTableName, &fk.PkColumnName, &fk.FkTableName, &fk.FkColumnName)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		fk.PkColumn = GetColumn(database, fk.FkColumnName, fk.FkTableName)
-		fk.FkColumn = GetColumn(database, fk.PkColumnName, fk.PkTableName)
+		fk.PkColumn = GetColumn(database, fk.PkColumnName, fk.PkTableName)
+		fk.FkColumn = GetColumn(database, fk.FkColumnName, fk.FkTableName)
 		fks = append(fks, fk)
 
 	}
