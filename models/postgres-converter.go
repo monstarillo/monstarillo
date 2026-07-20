@@ -86,10 +86,10 @@ func GetJavaDataTypeForPostgres(dataType string, numericPrecision int) string {
 		return "String"
 
 	case "date", "year", "datetime":
-		return "Date"
+		return "LocalDate"
 
 	case "timestamp":
-		return "Timestamp"
+		return "Instant"
 
 	case "time":
 		return "Time"
@@ -326,12 +326,12 @@ func GetJavaFirstUnitTestValueForPostgres(dataType string) string {
 	case "varchar", "char", "text", "tinytext", "mediumtext", "bpchar", "jsonb", "json", "uuid", "_text", "tsvector":
 		return "\"A\""
 	case "date", "datetime", "year":
-		return "new Date(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
+		return "LocalDate.of(2020, 1, 1)"
 	case "time":
 		return "new Time(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
 
 	case "timestamp":
-		return "new Timestamp(System.currentTimeMillis())"
+		return "Instant.ofEpochSecond(1000000000L)"
 
 	case "set", "enum", "geometry":
 		return "\"AA\""
@@ -370,12 +370,12 @@ func GetJavaSecondUnitTestValueForPostgres(dataType string) string {
 	case "varchar", "char", "text", "tinytext", "mediumtext", "bpchar", "jsonb", "json", "uuid", "_text", "tsvector":
 		return "\"B\""
 	case "date", "datetime", "year":
-		return "new Date(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
+		return "LocalDate.of(2021, 2, 2)"
 	case "time":
 		return "new Time(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
 
 	case "timestamp":
-		return "new Timestamp(System.currentTimeMillis())"
+		return "Instant.ofEpochSecond(2000000000L)"
 
 	case "set", "enum", "geometry":
 		return "\"BB\""
