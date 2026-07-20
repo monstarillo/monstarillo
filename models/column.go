@@ -240,9 +240,9 @@ func (c *Column) GetJavaFirstUnitTestValue() string {
 func (c *Column) GetJavaFirstUnitTestValueAsString() string {
 
 	if c.DatabaseType == "mysql" {
-		return strings.Replace(GetJavaFirstUnitTestValueForMySql(c.DataType), "L", "", 1)
+		return strings.TrimSuffix(GetJavaFirstUnitTestValueForMySql(c.DataType), "L")
 	} else if c.DatabaseType == "postgres" {
-		return strings.Replace(GetJavaFirstUnitTestValueForPostgres(c.DataType), "L", "", 1)
+		return strings.TrimSuffix(GetJavaFirstUnitTestValueForPostgres(c.DataType), "L")
 	}
 	return "Unknown" + "_" + c.DataType
 }
@@ -250,9 +250,9 @@ func (c *Column) GetJavaFirstUnitTestValueAsString() string {
 func (c *Column) GetJavaSecondUnitTestValueAsString() string {
 
 	if c.DatabaseType == "mysql" {
-		return strings.Replace(GetJavaSecondUnitTestValueForMySql(c.DataType), "L", "", 1)
+		return strings.TrimSuffix(GetJavaSecondUnitTestValueForMySql(c.DataType), "L")
 	} else if c.DatabaseType == "postgres" {
-		return strings.Replace(GetJavaSecondUnitTestValueForPostgres(c.DataType), "L", "", 1)
+		return strings.TrimSuffix(GetJavaSecondUnitTestValueForPostgres(c.DataType), "L")
 	}
 	return "Unknown" + "_" + c.DataType
 }

@@ -85,13 +85,13 @@ func GetJavaDataTypeForMySql(dataType string, numericPrecision int) string {
 		return "String"
 
 	case "date", "year", "datetime":
-		return "Date"
+		return "LocalDate"
 
 	case "set", "enum", "geometry":
 		return "String"
 
 	case "timestamp":
-		return "Timestamp"
+		return "Instant"
 
 	case "time":
 		return "Time"
@@ -226,7 +226,7 @@ func GetCSharpDataTypeForMySql(dataType string, numericPrecision int) string {
 func GetCSharpFirstUnitTestValueForMySql(dataType string) string {
 	switch dataType {
 	case "varchar", "char", "text", "tinytext", "mediumtext", "longtext":
-		return "A"
+		return "\"A\""
 
 	case "date", "datetime", "year", "time":
 		return "new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)"
@@ -235,7 +235,7 @@ func GetCSharpFirstUnitTestValueForMySql(dataType string) string {
 		return "string"
 
 	case "set", "enum", "geometry":
-		return "AA"
+		return "\"AA\""
 
 	case "int", "integer", "tinyint", "smallint", "mediumint":
 		return "2"
@@ -264,13 +264,13 @@ func GetGoFirstUnitTestValueForMySql(dataType string, numericPrecision int) stri
 
 	switch dataType {
 	case "varchar", "char", "text", "tinytext", "mediumtext", "longtext":
-		return "A"
+		return "\"A\""
 
 	case "date":
 		return "datatypes.Date"
 
 	case "set", "enum", "geometry":
-		return "AA"
+		return "\"AA\""
 
 	case "time", "datetime", "year", "timestamp":
 		return "time.Time"
@@ -315,13 +315,13 @@ func GetGoSecondUnitTestValueForMySql(dataType string, numericPrecision int) str
 
 	switch dataType {
 	case "varchar", "char", "text", "tinytext", "mediumtext", "longtext":
-		return "B"
+		return "\"B\""
 
 	case "date":
 		return "datatypes.Date"
 
 	case "set", "enum", "geometry":
-		return "BB"
+		return "\"BB\""
 
 	case "time", "datetime", "year", "timestamp":
 		return "time.Time"
@@ -365,18 +365,18 @@ func GetGoSecondUnitTestValueForMySql(dataType string, numericPrecision int) str
 func GetJavaFirstUnitTestValueForMySql(dataType string) string {
 	switch dataType {
 	case "varchar", "char", "text", "tinytext", "mediumtext", "longtext":
-		return "A"
+		return "\"A\""
 
 	case "date", "datetime", "year":
-		return "new Date(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
+		return "LocalDate.of(2020, 1, 1)"
 	case "time":
 		return "new Time(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
 
 	case "timestamp":
-		return "new Timestamp(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
+		return "Instant.ofEpochSecond(1000000000L)"
 
 	case "set", "enum", "geometry":
-		return "AA"
+		return "\"A\""
 
 	case "int", "integer", "tinyint", "smallint", "mediumint":
 		return "2"
@@ -407,18 +407,18 @@ func GetJavaFirstUnitTestValueForMySql(dataType string) string {
 func GetJavaSecondUnitTestValueForMySql(dataType string) string {
 	switch dataType {
 	case "varchar", "char", "text", "tinytext", "mediumtext", "longtext":
-		return "B"
+		return "\"B\""
 
 	case "date", "datetime", "year":
-		return "new Date(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
+		return "LocalDate.of(2021, 2, 2)"
 	case "time":
 		return "new Time(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
 
 	case "timestamp":
-		return "new Timestamp(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
+		return "Instant.ofEpochSecond(2000000000L)"
 
 	case "set", "enum", "geometry":
-		return "BB"
+		return "\"B\""
 
 	case "int", "integer", "tinyint", "smallint", "mediumint":
 		return "3"
@@ -449,7 +449,7 @@ func GetJavaSecondUnitTestValueForMySql(dataType string) string {
 func GetCSharpSecondUnitTestValueForMySql(dataType string) string {
 	switch dataType {
 	case "varchar", "char", "text", "tinytext", "mediumtext", "longtext":
-		return "B"
+		return "\"B\""
 
 	case "date", "datetime", "year", "time":
 		return "new DateTime(DateTime.Now.AddDays(1).Year, DateTime.Now.AddDays(1).Month, DateTime.Now.AddDays(1).Day)"
@@ -458,7 +458,7 @@ func GetCSharpSecondUnitTestValueForMySql(dataType string) string {
 		return "string"
 
 	case "set", "enum", "geometry":
-		return "BB"
+		return "\"BB\""
 
 	case "int", "integer", "tinyint", "smallint", "mediumint":
 		return "3"

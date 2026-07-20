@@ -429,7 +429,7 @@ func (t *Table) GetFirstPrimarySetString() string {
 	c := 0
 	for range t.Columns {
 		if t.Columns[c].IsPrimaryKey {
-			return strings.Replace(t.Columns[c].GetSetString(), "L", "", 1)
+			return strings.TrimSuffix(t.Columns[c].GetSetString(), "L")
 		}
 		c++
 	}
@@ -441,7 +441,7 @@ func (t *Table) GetJavaFirstPrimaryUnitTestValueAsString() string {
 	c := 0
 	for range t.Columns {
 		if t.Columns[c].IsPrimaryKey {
-			return strings.Replace(t.Columns[c].GetJavaFirstUnitTestValue(), "L", "", 1)
+			return strings.TrimSuffix(t.Columns[c].GetJavaFirstUnitTestValue(), "L")
 		}
 		c++
 	}
@@ -465,7 +465,7 @@ func (t *Table) GetJavaSecondPrimaryUnitTestValueAsString() string {
 	c := 0
 	for range t.Columns {
 		if t.Columns[c].IsPrimaryKey {
-			return strings.Replace(t.Columns[c].GetJavaSecondUnitTestValue(), "L", "", 1)
+			return strings.TrimSuffix(t.Columns[c].GetJavaSecondUnitTestValue(), "L")
 		}
 		c++
 	}
