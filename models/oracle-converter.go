@@ -1,10 +1,5 @@
 package models
 
-import (
-	"strconv"
-	"time"
-)
-
 func GetJavascriptDefaultValueForOracle(dataType string, numericPrecision int) string {
 	stringDefault := "\"\""
 	switch dataType {
@@ -78,8 +73,11 @@ func GetJavaDataTypeForOracle(dataType string, numericPrecision int) string {
 	case "VARCHAR", "VARCHAR2", "LONG", "CLOB", "NCLOB", "CHAR", "CHARACTER", "NCHAR", "NVARCHAR2":
 		return "String"
 
-	case "DATE", "TIMESTAMP", "TIMESTAMP WITH TZ", "TIMESTAMP WITH LOCAL TZ":
-		return "Date"
+	case "DATE":
+		return "LocalDate"
+
+	case "TIMESTAMP", "TIMESTAMP WITH TZ", "TIMESTAMP WITH LOCAL TZ":
+		return "Instant"
 
 	case "BINARY_INTEGER", "NATURAL", "NATURALN", "PLS_INTEGER", "POSITIVE", "POSITIVEN", "INT", "INTEGER", "SMALLINT":
 		return "Integer"
@@ -256,17 +254,18 @@ func GetGoSecondUnitTestValueForOracle(dataType string) string {
 func GetJavaFirstUnitTestValueForOracle(dataType string) string {
 	switch dataType {
 	case "VARCHAR", "VARCHAR2", "LONG", "CLOB", "NCLOB", "CHAR", "CHARACTER", "NCHAR", "NVARCHAR2":
-		return "A"
+		return "\"A\""
 	case "DATE":
-		return "new Date(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
-	//case "time":
-	//	return "new Time(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
+		return "LocalDate.of(2020, 1, 1)"
 
 	case "TIMESTAMP", "TIMESTAMP WITH TZ", "TIMESTAMP WITH LOCAL TZ":
-		return "new Timestamp(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
+		return "Instant.ofEpochSecond(1000000000L)"
 
-	case "BINARY_INTEGER", "NATURAL", "NATURALN", "PLS_INTEGER", "POSITIVE", "POSITIVEN", "INT", "INTEGER", "SMALLINT", "NUMBER":
+	case "BINARY_INTEGER", "NATURAL", "NATURALN", "PLS_INTEGER", "POSITIVE", "POSITIVEN", "INT", "INTEGER", "SMALLINT":
 		return "2"
+
+	case "NUMBER":
+		return "new BigDecimal(2)"
 
 	case "BOOLEAN":
 		return "true"
@@ -294,14 +293,12 @@ func GetJavaFirstUnitTestValueForOracle(dataType string) string {
 func GetJavaSecondUnitTestValueForOracle(dataType string) string {
 	switch dataType {
 	case "VARCHAR", "VARCHAR2", "LONG", "CLOB", "NCLOB", "CHAR", "CHARACTER", "NCHAR", "NVARCHAR2":
-		return "B"
+		return "\"B\""
 	case "DATE":
-		return "new Date(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
-	//case "time":
-	//	return "new Time(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
+		return "LocalDate.of(2021, 2, 2)"
 
 	case "TIMESTAMP", "TIMESTAMP WITH TZ", "TIMESTAMP WITH LOCAL TZ":
-		return "new Timestamp(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
+		return "Instant.ofEpochSecond(2000000000L)"
 
 	case "BINARY_INTEGER", "NATURAL", "NATURALN", "PLS_INTEGER", "POSITIVE", "POSITIVEN", "INT", "INTEGER", "SMALLINT":
 		return "3"
