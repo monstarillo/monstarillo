@@ -323,8 +323,8 @@ func GetGoSecondUnitTestValueForPostgres(dataType string) string {
 
 func GetJavaFirstUnitTestValueForPostgres(dataType string) string {
 	switch dataType {
-	case "varchar", "char", "text", "tinytext", "mediumtext", "bpchar":
-		return "A"
+	case "varchar", "char", "text", "tinytext", "mediumtext", "bpchar", "jsonb", "json", "uuid", "_text", "tsvector":
+		return "\"A\""
 	case "date", "datetime", "year":
 		return "new Date(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
 	case "time":
@@ -334,7 +334,7 @@ func GetJavaFirstUnitTestValueForPostgres(dataType string) string {
 		return "new Timestamp(System.currentTimeMillis())"
 
 	case "set", "enum", "geometry":
-		return "AA"
+		return "\"AA\""
 
 	case "int", "integer", "tinyint", "smallint", "int2", "int4":
 		return "2"
@@ -367,8 +367,8 @@ func GetJavaFirstUnitTestValueForPostgres(dataType string) string {
 
 func GetJavaSecondUnitTestValueForPostgres(dataType string) string {
 	switch dataType {
-	case "varchar", "char", "text", "tinytext", "mediumtext", "bpchar":
-		return "B"
+	case "varchar", "char", "text", "tinytext", "mediumtext", "bpchar", "jsonb", "json", "uuid", "_text", "tsvector":
+		return "\"B\""
 	case "date", "datetime", "year":
 		return "new Date(" + strconv.FormatInt(time.Now().UnixMilli()/int64(time.Millisecond), 10) + ")"
 	case "time":
@@ -378,7 +378,7 @@ func GetJavaSecondUnitTestValueForPostgres(dataType string) string {
 		return "new Timestamp(System.currentTimeMillis())"
 
 	case "set", "enum", "geometry":
-		return "BB"
+		return "\"BB\""
 
 	case "int", "integer", "tinyint", "smallint", "int2", "int4":
 		return "3"
