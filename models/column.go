@@ -89,6 +89,11 @@ func (c *Column) GetJavaDataType() string {
 		return GetJavaDataTypeForMySql(c.DataType, c.NumericPrecision)
 	} else if c.DatabaseType == "postgres" {
 		return GetJavaDataTypeForPostgres(c.DataType, c.NumericPrecision)
+	} else if c.DatabaseType == "oracle" {
+		if c.DataType == "NUMBER" && c.NumericScale <= 0 {
+			return "Integer"
+		}
+		return GetJavaDataTypeForOracle(c.DataType, c.NumericPrecision)
 	}
 
 	return "InvalidDatabaseType"
@@ -203,6 +208,11 @@ func (c *Column) GetJavaFirstUnitTestValueFromFile(valuesFile string) string {
 		return GetJavaFirstUnitTestValueForMySql(c.DataType)
 	} else if c.DatabaseType == "postgres" {
 		return GetJavaFirstUnitTestValueForPostgres(c.DataType)
+	} else if c.DatabaseType == "oracle" {
+		if c.DataType == "NUMBER" && c.NumericScale <= 0 {
+			return "2"
+		}
+		return GetJavaFirstUnitTestValueForOracle(c.DataType)
 	}
 	return "Unknown" + "_" + c.DataType
 }
@@ -233,6 +243,11 @@ func (c *Column) GetJavaFirstUnitTestValue() string {
 		return GetJavaFirstUnitTestValueForMySql(c.DataType)
 	} else if c.DatabaseType == "postgres" {
 		return GetJavaFirstUnitTestValueForPostgres(c.DataType)
+	} else if c.DatabaseType == "oracle" {
+		if c.DataType == "NUMBER" && c.NumericScale <= 0 {
+			return "2"
+		}
+		return GetJavaFirstUnitTestValueForOracle(c.DataType)
 	}
 	return "Unknown" + "_" + c.DataType
 }
@@ -243,6 +258,11 @@ func (c *Column) GetJavaFirstUnitTestValueAsString() string {
 		return strings.TrimSuffix(GetJavaFirstUnitTestValueForMySql(c.DataType), "L")
 	} else if c.DatabaseType == "postgres" {
 		return strings.TrimSuffix(GetJavaFirstUnitTestValueForPostgres(c.DataType), "L")
+	} else if c.DatabaseType == "oracle" {
+		if c.DataType == "NUMBER" && c.NumericScale <= 0 {
+			return "2"
+		}
+		return strings.TrimSuffix(GetJavaFirstUnitTestValueForOracle(c.DataType), "L")
 	}
 	return "Unknown" + "_" + c.DataType
 }
@@ -253,6 +273,11 @@ func (c *Column) GetJavaSecondUnitTestValueAsString() string {
 		return strings.TrimSuffix(GetJavaSecondUnitTestValueForMySql(c.DataType), "L")
 	} else if c.DatabaseType == "postgres" {
 		return strings.TrimSuffix(GetJavaSecondUnitTestValueForPostgres(c.DataType), "L")
+	} else if c.DatabaseType == "oracle" {
+		if c.DataType == "NUMBER" && c.NumericScale <= 0 {
+			return "3"
+		}
+		return strings.TrimSuffix(GetJavaSecondUnitTestValueForOracle(c.DataType), "L")
 	}
 	return "Unknown" + "_" + c.DataType
 }
@@ -262,6 +287,11 @@ func (c *Column) GetJavaSecondUnitTestValue() string {
 		return GetJavaSecondUnitTestValueForMySql(c.DataType)
 	} else if c.DatabaseType == "postgres" {
 		return GetJavaSecondUnitTestValueForPostgres(c.DataType)
+	} else if c.DatabaseType == "oracle" {
+		if c.DataType == "NUMBER" && c.NumericScale <= 0 {
+			return "3"
+		}
+		return GetJavaSecondUnitTestValueForOracle(c.DataType)
 	}
 
 	return "Unknown" + "_" + c.DataType
@@ -333,6 +363,11 @@ func (c *Column) GetJavaSecondUnitTestValueFromFile(valuesFile string) string {
 		return GetJavaSecondUnitTestValueForMySql(c.DataType)
 	} else if c.DatabaseType == "postgres" {
 		return GetJavaSecondUnitTestValueForPostgres(c.DataType)
+	} else if c.DatabaseType == "oracle" {
+		if c.DataType == "NUMBER" && c.NumericScale <= 0 {
+			return "3"
+		}
+		return GetJavaSecondUnitTestValueForOracle(c.DataType)
 	}
 	return "Unknown" + "_" + c.DataType
 }
