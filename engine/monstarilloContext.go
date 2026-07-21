@@ -52,8 +52,9 @@ func (m *MonstarilloContext) GetFkTableName(tableName, columnName string) string
 	for _, t := range m.Tables {
 		if t.TableName == tableName {
 			for _, fk := range t.ForeignKeys {
-				if fk.FkColumnName == columnName {
-					return fk.PkTableName
+				// PkColumnName is this table's FK column; FkTableName is the referenced (parent) table.
+				if fk.PkColumnName == columnName {
+					return fk.FkTableName
 				}
 			}
 		}
