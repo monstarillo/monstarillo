@@ -63,6 +63,31 @@ func (m *MonstarilloContext) GetFkTableName(tableName, columnName string) string
 	return ""
 }
 
+// GetDisplayColumn returns the camelCase name of a table's best "label" column:
+// the first non-primary-key string column, falling back to the first primary key,
+// then the first column. Used so foreign keys display a human value.
+func (m *MonstarilloContext) GetDisplayColumn(tableName string) string {
+	for _, t := range m.Tables {
+		if t.TableName == tableName {
+			for i := range t.Columns {
+				c := &t.Columns[i]
+				if !c.IsPrimaryKey && c.GetJavaDataType() == "String" {
+					return c.GetCamelCaseColumnName()
+				}
+			}
+			for i := range t.Columns {
+				if t.Columns[i].IsPrimaryKey {
+					return t.Columns[i].GetCamelCaseColumnName()
+				}
+			}
+			if len(t.Columns) > 0 {
+				return t.Columns[0].GetCamelCaseColumnName()
+			}
+		}
+	}
+	return ""
+}
+
 func (m *MonstarilloContext) GetFkTableNamePlural(tableName, columnName string) string {
 
 	for _, t := range m.Tables {
